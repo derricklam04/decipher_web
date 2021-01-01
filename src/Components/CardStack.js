@@ -5,7 +5,7 @@ import { Form } from './Form'
 
 export const CardStack = () => {
 
-    const [card, setCard] = useState([])
+    const [cards, setCards] = useState([])
     const [addCard, setAddCard] = useState('')
 
     useEffect(()=>{
@@ -13,7 +13,7 @@ export const CardStack = () => {
             if(response.ok){
                 return response.json()
             }
-        }).then(data => setCard(data))
+        }).then(data => setCards(data))
     },[])
 
     const handleFormChange = (inputValue) => {
@@ -30,16 +30,24 @@ export const CardStack = () => {
                 "Content-type": "application/json; charset=UTF-8"
             }
         }).then(response => response.json())
-          .then(message => {
+          .then(message=> {
                 console.log(message)
                 setAddCard('')
-          }
-        )
+                updateCardStack()
+        })
+    }
+
+    const updateCardStack = () => {
+        fetch('/api').then(response =>{
+            if(response.ok){
+                return response.json()
+            }
+        }).then(data => setCards(data))
     }
     return (
         <div>
             <Form userInput={addCard} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit}/>
-            <Card cards={card}/>
+            <Card cards={cards}/>
         </div>
     )
 }
