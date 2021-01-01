@@ -10,11 +10,17 @@ export const Form = ( {userInput, onFormChange, onFormSubmit} ) => {
         event.preventDefault()
         onFormSubmit()
     }
+    
 
     return(
+        <>
         <form onSubmit={handleSubmit}>
             <input type='text' required value={userInput} onChange={handleChange}></input>
-            <input type='submit'></input>
+            <input type='submit'></input>            
         </form>
+        <form>
+            <input type='text'></input>
+        </form>
+        </>
     )
 }

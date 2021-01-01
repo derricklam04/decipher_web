@@ -32,5 +32,6 @@ def create():
 
     return {'201': 'History Card created successfully'}
 
+
 if __name__ == '__main__':
     app.run(debug=True)

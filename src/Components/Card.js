@@ -1,12 +1,17 @@
 import React from 'react';
 
-export const Card = ({cards}) => {
+export const Card = ({cards, onCardClick}) => {
+
+    const handleClick = (content) =>{
+        onCardClick(content)
+    }
+
     return(
         <div>
             {cards.map(card => {
                 return(
                     <ul key={card.id}>
-                        <li>{card.content}</li>
+                        <li onClick={() => handleClick(card.content)}>{card.content}</li>
                     </ul>
                 )
             })}

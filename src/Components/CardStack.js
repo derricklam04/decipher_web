@@ -44,10 +44,15 @@ export const CardStack = () => {
             }
         }).then(data => setCards(data))
     }
+
+    const handleCardClick = (cardContent) => {
+        setAddCard(cardContent)
+    }
+
     return (
         <div>
             <Form userInput={addCard} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit}/>
-            <Card cards={cards}/>
+            <Card cards={cards} onCardClick={handleCardClick}/>
         </div>
     )
 }
