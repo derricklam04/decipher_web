@@ -30,7 +30,17 @@ def create():
     db.session.add(card)
     db.session.commit()
 
-    return {'201': 'History Card created successfully'}
+    message = 'Card '+str(card.id)+' created'
+    return {'201': message}
+
+@app.route('/api/<int:id>', methods = ['POST'])
+def delete(id):
+    request_data = json.loads(request.data)
+    Card.query.filter_by(id=request_data['id']).delete()
+    db.session.commit()
+
+    message = 'Card '+str(id)+' deleted successfully'
+    return {'204': message}
 
 
 if __name__ == '__main__':

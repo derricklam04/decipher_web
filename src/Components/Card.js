@@ -1,18 +1,24 @@
 import React from 'react';
 
-export const Card = ({cards, onCardClick}) => {
+export const Card = ({cards, onCardClick, onCardDelete}) => {
 
     const handleClick = (content) =>{
         onCardClick(content)
+    }
+    const handleDelete = (id) =>{
+        onCardDelete(id)
     }
 
     return(
         <div>
             {cards.map(card => {
                 return(
-                    <ul key={card.id}>
-                        <li onClick={() => handleClick(card.content)}>{card.content}</li>
-                    </ul>
+                    <div key={card.id}>
+                        <ul >
+                            <li onClick={() => handleClick(card.content)}>{card.content}</li>
+                        </ul>
+                        <button onClick={() => handleDelete(card.id)}>X</button>
+                    </div>
                 )
             })}
         </div>

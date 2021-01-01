@@ -48,11 +48,23 @@ export const CardStack = () => {
     const handleCardClick = (cardContent) => {
         setAddCard(cardContent)
     }
+    const handleCardDelete = (cardID) =>{
+        fetch('/api/'+cardID, {
+            method: 'POST',
+            body: JSON.stringify({
+                id: cardID
+            })
+        }).then(response => response.json())
+            .then(data => {
+                console.log(data)
+                updateCardStack()
+        })
+    }
 
     return (
         <div>
             <Form userInput={addCard} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit}/>
-            <Card cards={cards} onCardClick={handleCardClick}/>
+            <Card cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
         </div>
     )
 }
