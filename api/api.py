@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, json
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -21,6 +21,16 @@ def card_to_json(card):
 @app.route('/api', methods =['GET'])
 def index():
     return jsonify([*map(card_to_json, Card.query.all())])
+
+@app.route('/api/create', methods = ['POST'])
+def create():
+    request_data = json.loads(request.data)
+    card = Card(content=request_data['content'])
+
+    db.session.add(card)
+    db.session.commit()
+
+    return {'201': 'History Card created successfully'}
 
 if __name__ == '__main__':
     app.run(debug=True)
