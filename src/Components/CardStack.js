@@ -7,6 +7,7 @@ export const CardStack = () => {
 
     const [cards, setCards] = useState([])
     const [addCard, setAddCard] = useState('')
+    const [codedText, setCodedText] = useState('')
 
     useEffect(()=>{
         fetch('/api').then(response => {
@@ -33,6 +34,7 @@ export const CardStack = () => {
           .then(message=> {
                 console.log(message)
                 setAddCard('')
+                setCodedText(message['codedText'])
                 updateCardStack()
         })
     }
@@ -48,6 +50,7 @@ export const CardStack = () => {
     const handleCardClick = (cardContent) => {
         setAddCard(cardContent)
     }
+
     const handleCardDelete = (cardID) =>{
         fetch('/api/'+cardID, {
             method: 'POST',
@@ -63,7 +66,7 @@ export const CardStack = () => {
 
     return (
         <div>
-            <Form userInput={addCard} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit}/>
+            <Form userInput={addCard} codedText={codedText} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit}/>
             <Card cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
         </div>
     )

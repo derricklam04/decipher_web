@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, json
 from flask_sqlalchemy import SQLAlchemy
+from algorithm import *
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.db"
@@ -24,14 +25,18 @@ def index():
 
 @app.route('/api/create', methods = ['POST'])
 def create():
+    # CREATE CARD
     request_data = json.loads(request.data)
     card = Card(content=request_data['content'])
 
     db.session.add(card)
     db.session.commit()
-
     message = 'Card '+str(card.id)+' created'
-    return {'201': message}
+
+    # ENCODE/DECODE MESSAGE
+    coded = encode(card.content, "key")
+
+    return {'201': message, 'codedText': coded}
 
 @app.route('/api/<int:id>', methods = ['POST'])
 def delete(id):
