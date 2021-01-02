@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import {Card} from './Card'
 import { Form } from './Form'
 
@@ -6,9 +6,21 @@ import { Form } from './Form'
 export const CardStack = () => {
 
     const [cards, setCards] = useState([])
-    const [addCard, setAddCard] = useState('')
-    const [translatedText, setTranslatedText] = useState('')
     const [type, setType] = useState('encode')
+
+    // const [addCard, setAddCard] = useState('')
+    // const [key, setKey] = useState('')
+    // const [translatedText, setTranslatedText] = useState('')
+
+    const [userInput, setUserInput] = useReducer(
+        (state, newState) => ({...state,  ...newState}),
+        {
+            addCard: '',
+            key: '',
+            translated: ''
+        }
+    )
+    
 
     useEffect(()=>{
         fetch('/api').then(response => {
@@ -18,19 +30,23 @@ export const CardStack = () => {
         }).then(data => setCards(data))
     },[])
 
-    const handleFormChange = (name, inputValue) => {
-        if (name === 'input'){
-            setAddCard(inputValue)
-        }else if(name === 'output'){
-            setTranslatedText(inputValue)
-        }
+    const handleFormChange = (event) => {
+        // if (name === 'input'){
+        //     setAddCard(inputValue)
+        // }else if(name === 'output'){
+        //     setTranslatedText(inputValue)
+        // }
+
+        const {name, value} = event.target;
+        setUserInput({[name]:value})
     }
 
     const handleFormSubmit = () => {
         fetch('/api/create', {
             method: 'POST',
             body: JSON.stringify({
-                content:addCard,
+                content: userInput.addCard,
+                key: userInput.key,
                 type: type
             }),
             headers: {
@@ -39,14 +55,15 @@ export const CardStack = () => {
         }).then(response => response.json())
           .then(message=> {
                 console.log(message)
-                setTranslatedText(message['translatedText'])
+                setUserInput({translated: message['translated'] });
                 updateCardStack()
         })
     }
 
     const handleFormClear = () => {
-        setAddCard('')
-        setTranslatedText('')
+        setUserInput({addCard: ''});
+        setUserInput({translated: ''});
+
     }
 
     const updateCardStack = () => {
@@ -58,8 +75,9 @@ export const CardStack = () => {
     }
 
     const handleCardClick = (card) => {
-        setAddCard(card.content)
-        setTranslatedText(card.translated)
+        setUserInput({addCard: card.content});
+        setUserInput({key: card.key});
+        setUserInput({translated: card.translated});
     }
 
     const handleCardDelete = (cardID) =>{
@@ -77,7 +95,7 @@ export const CardStack = () => {
 
     return (
         <div>
-            <Form userInput={addCard} translatedText={translatedText} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear}/>
+            <Form userInput={userInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear}/>
             <Card cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
         </div>
     )

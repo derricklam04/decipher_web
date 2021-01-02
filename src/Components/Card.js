@@ -5,7 +5,8 @@ export const Card = ({cards, onCardClick, onCardDelete}) => {
     const handleClick = (card) =>{
         onCardClick(card)
     }
-    const handleDelete = (id) =>{
+    const handleDelete = (event, id) =>{
+        event.stopPropagation()
         onCardDelete(id)
     }
 
@@ -16,9 +17,12 @@ export const Card = ({cards, onCardClick, onCardDelete}) => {
                 return(
                     <div key={card.id}>
                         <ul >
-                            <li onClick={() => handleClick(card)}>{card.content}</li>
+                            <li onClick={() => handleClick(card)}>Text: {card.content}
+                                <button onClick={(event) => handleDelete(event, card.id)}>X</button>
+                            </li>
+                            <p>key: {card.key}</p>
                         </ul>
-                        <button onClick={() => handleDelete(card.id)}>X</button>
+                        
                     </div>
                 )
             })}

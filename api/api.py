@@ -32,13 +32,13 @@ def index():
 @app.route('/api/create', methods = ['POST'])
 def create():
     request_data = json.loads(request.data)
-    translated = encode(request_data['content'], "key")
+    translated = encode(request_data['content'], request_data['key'])
 
-    card = Card(content=request_data['content'],key="key", translated=translated, translateType=request_data['type'])
+    card = Card(content=request_data['content'],key=request_data['key'], translated=translated, translateType=request_data['type'])
 
     db.session.add(card)
     db.session.commit()
-    
+
     message = 'Card '+str(card.id)+' created'
     return {'201': message, 'translatedText': translated}
 

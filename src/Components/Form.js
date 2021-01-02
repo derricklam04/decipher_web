@@ -2,10 +2,10 @@ import React from 'react';
 import { Clear } from './Buttons/Clear'
 
 
-export const Form = ( {userInput, translatedText, onFormChange, onFormSubmit, onFormClear} ) => {
+export const Form = ( {userInput, onFormChange, onFormSubmit, onFormClear} ) => {
 
     const handleChange = (event) => {
-        onFormChange(event.target.name, event.target.value)
+        onFormChange(event)
     }
 
     const handleSubmit = (event) => {
@@ -20,12 +20,19 @@ export const Form = ( {userInput, translatedText, onFormChange, onFormSubmit, on
     return(
         <>
         <form onSubmit={handleSubmit}>
-            <input name="input" type='text' required value={userInput} onChange={handleChange}></input>
+            <label> Input:
+                <input name="addCard" type='text' required value={userInput.addCard} onChange={handleChange}></input>
+            </label>
+            <label> key:
+                <input name="key" type='text' required value={userInput.key} onChange={handleChange}></input>
+            </label>
             <input type='submit'></input>            
         </form>
         <Clear onFormClear={handleClear}/>
         <form>
-            <input name="output" type='text' value={translatedText} onChange={handleChange} ></input>
+            <label> Output:
+            <input name="translated" type='text' value={userInput.translated} onChange={handleChange} ></input>
+            </label>
         </form>
         
         </>
