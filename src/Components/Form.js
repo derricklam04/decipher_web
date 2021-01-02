@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Form = ( {userInput, codedText, onFormChange, onFormSubmit} ) => {
+export const Form = ( {userInput, translatedText, onFormChange, onFormSubmit} ) => {
 
     const handleChange = (event) => {
         onFormChange(event.target.value)
@@ -18,7 +18,7 @@ export const Form = ( {userInput, codedText, onFormChange, onFormSubmit} ) => {
             <input type='submit'></input>            
         </form>
         <form>
-            <input type='text' defaultValue={codedText}></input>
+            <input type='text' defaultValue={translatedText}></input>
         </form>
         </>
     )

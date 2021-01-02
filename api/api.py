@@ -9,14 +9,20 @@ db = SQLAlchemy(app)
 class Card(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False) # cannnot be empty
+    key = db.Column(db.Text, nullable=True)
+    translated = db.Column(db.Text, nullable=True)
+    translateType = db.Column(db.Text, nullable=True)
 
     def __str__(self):
-        return f'{self.id} {self.content}'
+        return f'{self.id} {self.content} {self.key} {self.translated} {self.translateType}'
 
 def card_to_json(card):
     return{
         'id': card.id,
-        'content': card.content
+        'content': card.content,
+        'key': card.key,
+        'translated': card.translated,
+        'translatedType': card.translateType
     }
 
 @app.route('/api', methods =['GET'])
@@ -25,18 +31,16 @@ def index():
 
 @app.route('/api/create', methods = ['POST'])
 def create():
-    # CREATE CARD
     request_data = json.loads(request.data)
-    card = Card(content=request_data['content'])
+    translated = encode(request_data['content'], "key")
+
+    card = Card(content=request_data['content'],key="key", translated=translated, translateType=request_data['type'])
 
     db.session.add(card)
     db.session.commit()
+    
     message = 'Card '+str(card.id)+' created'
-
-    # ENCODE/DECODE MESSAGE
-    coded = encode(card.content, "key")
-
-    return {'201': message, 'codedText': coded}
+    return {'201': message, 'translatedText': translated}
 
 @app.route('/api/<int:id>', methods = ['POST'])
 def delete(id):

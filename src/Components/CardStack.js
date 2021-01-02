@@ -7,7 +7,8 @@ export const CardStack = () => {
 
     const [cards, setCards] = useState([])
     const [addCard, setAddCard] = useState('')
-    const [codedText, setCodedText] = useState('')
+    const [translatedText, setTranslatedText] = useState('')
+    const [type, setType] = useState('encode')
 
     useEffect(()=>{
         fetch('/api').then(response => {
@@ -25,7 +26,8 @@ export const CardStack = () => {
         fetch('/api/create', {
             method: 'POST',
             body: JSON.stringify({
-                content:addCard
+                content:addCard,
+                type: type
             }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
@@ -33,8 +35,8 @@ export const CardStack = () => {
         }).then(response => response.json())
           .then(message=> {
                 console.log(message)
-                setAddCard('')
-                setCodedText(message['codedText'])
+                // setAddCard('')
+                setTranslatedText(message['translatedText'])
                 updateCardStack()
         })
     }
@@ -47,8 +49,9 @@ export const CardStack = () => {
         }).then(data => setCards(data))
     }
 
-    const handleCardClick = (cardContent) => {
-        setAddCard(cardContent)
+    const handleCardClick = (card) => {
+        setAddCard(card.content)
+        setTranslatedText(card.translated)
     }
 
     const handleCardDelete = (cardID) =>{
@@ -66,7 +69,7 @@ export const CardStack = () => {
 
     return (
         <div>
-            <Form userInput={addCard} codedText={codedText} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit}/>
+            <Form userInput={addCard} translatedText={translatedText} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit}/>
             <Card cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
         </div>
     )
