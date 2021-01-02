@@ -55,13 +55,14 @@ export const CardStack = () => {
         }).then(response => response.json())
           .then(message=> {
                 console.log(message)
-                setUserInput({translated: message['translated'] });
+                setUserInput({translated: message['translatedText'] });
                 updateCardStack()
         })
     }
 
     const handleFormClear = () => {
         setUserInput({addCard: ''});
+        setUserInput({key: ''});
         setUserInput({translated: ''});
 
     }
