@@ -1,6 +1,6 @@
 import './App.css';
 import { CardStack } from './Components/CardStack'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

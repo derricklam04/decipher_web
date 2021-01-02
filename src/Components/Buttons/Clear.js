@@ -1,4 +1,6 @@
 import React from 'react';
+import { Button } from 'react-bootstrap'
+
 
 
 export const Clear = ({onFormClear}) => {
@@ -8,7 +10,7 @@ export const Clear = ({onFormClear}) => {
 
     return (
         <div>
-            <button onClick={handleClear}>clear</button>
+            <Button onClick={handleClear} variant="primary" type="submit" >Clear</Button>
         </div>
     )
 }
