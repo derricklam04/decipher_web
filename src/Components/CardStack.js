@@ -1,16 +1,12 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import {Card} from './Card'
-import { Form } from './Form'
+import { InputForm } from './InputForm'
 
 
 export const CardStack = () => {
 
     const [cards, setCards] = useState([])
     const [type, setType] = useState('encode')
-
-    // const [addCard, setAddCard] = useState('')
-    // const [key, setKey] = useState('')
-    // const [translatedText, setTranslatedText] = useState('')
 
     const [userInput, setUserInput] = useReducer(
         (state, newState) => ({...state,  ...newState}),
@@ -31,12 +27,6 @@ export const CardStack = () => {
     },[])
 
     const handleFormChange = (event) => {
-        // if (name === 'input'){
-        //     setAddCard(inputValue)
-        // }else if(name === 'output'){
-        //     setTranslatedText(inputValue)
-        // }
-
         const {name, value} = event.target;
         setUserInput({[name]:value})
     }
@@ -96,7 +86,7 @@ export const CardStack = () => {
 
     return (
         <div>
-            <Form userInput={userInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear}/>
+            <InputForm userInput={userInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear}/>
             <Card cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
         </div>
     )
