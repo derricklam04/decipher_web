@@ -18,8 +18,12 @@ export const CardStack = () => {
         }).then(data => setCards(data))
     },[])
 
-    const handleFormChange = (inputValue) => {
-        setAddCard(inputValue)
+    const handleFormChange = (name, inputValue) => {
+        if (name === 'input'){
+            setAddCard(inputValue)
+        }else if(name === 'output'){
+            setTranslatedText(inputValue)
+        }
     }
 
     const handleFormSubmit = () => {
@@ -35,10 +39,14 @@ export const CardStack = () => {
         }).then(response => response.json())
           .then(message=> {
                 console.log(message)
-                // setAddCard('')
                 setTranslatedText(message['translatedText'])
                 updateCardStack()
         })
+    }
+
+    const handleFormClear = () => {
+        setAddCard('')
+        setTranslatedText('')
     }
 
     const updateCardStack = () => {
@@ -69,7 +77,7 @@ export const CardStack = () => {
 
     return (
         <div>
-            <Form userInput={addCard} translatedText={translatedText} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit}/>
+            <Form userInput={addCard} translatedText={translatedText} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear}/>
             <Card cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
         </div>
     )
