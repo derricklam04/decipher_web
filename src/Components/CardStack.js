@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useReducer} from 'react';
-import {Card} from './Card'
+import { HistoryCard } from './HistoryCard'
 import { InputForm } from './InputForm'
+import { Row, Col } from 'react-bootstrap'
+
 
 
 export const CardStack = () => {
@@ -86,8 +88,17 @@ export const CardStack = () => {
 
     return (
         <div>
-            <InputForm userInput={userInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear}/>
-            <Card cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
+            <Row>
+            <Col xs={9}>
+                <InputForm userInput={userInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear}/>
+            </Col>
+            <Col xs={3}>                
+                <HistoryCard cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
+            </Col>
+            </Row>
+            <br />
+            
+            
         </div>
     )
 }

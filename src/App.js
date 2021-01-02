@@ -1,11 +1,13 @@
 import './App.css';
 import { CardStack } from './Components/CardStack'
+import { NavBar} from './Components/NavBar'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
-      <h1>Encoder / Decoder</h1>
+      <NavBar/>
       <CardStack/>
     </div>
   );
