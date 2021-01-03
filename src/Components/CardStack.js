@@ -49,6 +49,7 @@ export const CardStack = () => {
           .then(message=> {
                 console.log(message)
                 setUserInput({translated: message['translatedText'] });
+                setUserInput({key: message['key'] });
                 updateCardStack()
         })
     }

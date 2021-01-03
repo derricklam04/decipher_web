@@ -3,14 +3,16 @@ import { Button } from 'react-bootstrap'
 
 
 
-export const Clear = ({onFormClear}) => {
+export const Clear = ({onFormClear, disabled}) => {
+
+
     const handleClear = () => {
         onFormClear()
     }
 
     return (
         <div>
-            <Button onClick={handleClear} variant="primary" type="submit" >Clear</Button>
+            <Button onClick={handleClear} variant="primary" type="submit" disabled={disabled}>Clear</Button>
         </div>
     )
 }

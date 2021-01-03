@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Clear } from './Buttons/Clear'
-import { Toggle } from './Buttons/Toggle'
 import { Card, Nav, Form, Button, ButtonGroup, Col } from 'react-bootstrap'
 
 
 
 export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, onToggle} ) => {
+
+    const [disableKeyLength, setDisableKeyLength] = useState(true)
+    const [requireKey, setRequireKey] = useState(true)
+    const [placeHolder, setPlaceHolder] = useState("Input Here...")
+
 
     const handleChange = (event) => {
         onFormChange(event)
@@ -22,6 +26,15 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
 
     const handleToggle = (event) => {
         onToggle(event)
+        if(event === "#encrypt"){
+            setDisableKeyLength(true)
+            setRequireKey(true)
+            setPlaceHolder("Input Here...")
+        }else if(event === "#decrypt"){
+            setDisableKeyLength(false)
+            setRequireKey(false)
+            setPlaceHolder("Input Here...\n\n( leave Key or Key Length empty if unknown )")
+        }
     }
     
     return(
@@ -40,22 +53,25 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
             <Card.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group>
-                        <Form.Control as="textarea" placeholder ="Input Here..." rows={8} name="addCard" required value={userInput.addCard} onChange={handleChange}/>
+                        <Form.Control as="textarea" placeholder ={placeHolder} rows={8} name="addCard" required value={userInput.addCard} onChange={handleChange}/>
                     </Form.Group>
 
                     <Form.Group>
                     <Form.Row>
                         <Col md={5}>
-                            <Form.Control type="text" placeholder="Enter Key" name="key" required value={userInput.key} onChange={handleChange} />
+                            <Form.Control type="text" placeholder="Enter Key" name="key" required={requireKey} value={userInput.key} 
+                                onChange={handleChange} />
                         </Col>
                         <Col md={2}>
-                            <Form.Control type="number" placeholder="Key Length" name="keyLength" value={userInput.keyLength} onChange={handleChange} />
+                            <Form.Control type="number" placeholder="Key Length" name="keyLength" 
+                                value={userInput.keyLength} onChange={handleChange} disabled={disableKeyLength}/>
                         </Col>
                         <Col md={{offset:2}}>
-                            <Clear onFormClear={handleClear}/>
+                            <Clear onFormClear={handleClear} 
+                                disabled={userInput.addCard === "" && userInput.key === "" && userInput.translated === ""}/>
                         </Col>
                         <Col md="auto">
-                            <Button variant="success" type="submit">Submit </Button>
+                            <Button variant="success" type="submit" >Submit </Button>
                         </Col>
                     </Form.Row>
                     </Form.Group>

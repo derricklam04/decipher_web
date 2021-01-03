@@ -40,7 +40,14 @@ def create():
     if translateType == "#encrypt":
         translated = encode(request_data['content'], request_data['key'])
     elif translateType == "#decrypt":
-        translated = decode(request_data['content'], request_data['key'])
+        if request_data['key'] != "": # if key is known
+            translated = decode(request_data['content'], request_data['key'])
+        elif request_data['keyLength'] != "": # if keyLength is known
+            key, translated = decode1(request_data['content'], request_data['keyLength'])
+            request_data['key'] = key
+        else:
+            key, translated = decode2(request_data['content'])
+            request_data['key'] = key
 
     card = Card(content=request_data['content'],key=request_data['key'], keyLength=request_data['keyLength'], translated=translated, translateType=request_data['type'])
 
@@ -48,7 +55,7 @@ def create():
     db.session.commit()
 
     message = 'Card '+str(card.id)+' created'
-    return {'201': message, 'translatedText': translated}
+    return {'201': message, 'translatedText': translated, 'key':request_data['key']}
 
 @app.route('/api/<int:id>', methods = ['POST'])
 def delete(id):
