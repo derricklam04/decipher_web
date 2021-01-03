@@ -1,22 +1,24 @@
 import React, {useState, useEffect, useReducer} from 'react';
-import {Card} from './Card'
+import { HistoryCard } from './HistoryCard'
 import { InputForm } from './InputForm'
+import { Row, Col } from 'react-bootstrap'
+
 
 
 export const CardStack = () => {
 
     const [cards, setCards] = useState([])
-    const [type, setType] = useState('encode')
+    const [type, setType] = useState('#encrypt')
 
     const [userInput, setUserInput] = useReducer(
         (state, newState) => ({...state,  ...newState}),
         {
             addCard: '',
             key: '',
+            keyLength: '',
             translated: ''
         }
     )
-    
 
     useEffect(()=>{
         fetch('/api').then(response => {
@@ -37,6 +39,7 @@ export const CardStack = () => {
             body: JSON.stringify({
                 content: userInput.addCard,
                 key: userInput.key,
+                keyLength: userInput.keyLength,
                 type: type
             }),
             headers: {
@@ -53,6 +56,7 @@ export const CardStack = () => {
     const handleFormClear = () => {
         setUserInput({addCard: ''});
         setUserInput({key: ''});
+        setUserInput({keyLength: ''});
         setUserInput({translated: ''});
 
     }
@@ -84,10 +88,23 @@ export const CardStack = () => {
         })
     }
 
+    const handleToggle = (event) => {
+        setType(event)
+    }
+
     return (
         <div>
-            <InputForm userInput={userInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear}/>
-            <Card cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
+            <Row>
+            <Col md={9}>
+                <InputForm userInput={userInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear} onToggle={handleToggle}/>
+            </Col>
+            <Col md={3}>                
+                <HistoryCard cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
+            </Col>
+            </Row>
+            <br />
+            
+            
         </div>
     )
 }
