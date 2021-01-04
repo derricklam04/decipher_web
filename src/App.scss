@@ -1,0 +1,49 @@
+.App {
+  text-align: left;
+}
+
+.home{
+  margin-right: 0 !important;
+}
+
+.inputForm{
+  .btn{
+    width:6rem;
+  }
+  .clearBtn{
+    margin-left: 16%;
+  }
+  .btn.btn-primary[disabled]{
+    background-color: #484545;
+    border-color:#4b4b4b;
+  }
+}
+
+.history{
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+
+  .historyCard{
+    margin-bottom: 15px;
+
+    .card-body{
+
+    }
+    .card-header{
+      height: 36px;
+      .btn{
+        position: relative;
+        bottom: 10px;
+        left:15px;
+
+        width: 5rem !important;
+        margin-left: 5px;
+        float: right;
+      }
+    }
+    
+    
+  }
+
+}
+

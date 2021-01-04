@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { CardStack } from './Components/CardStack'
 import { NavBar} from './Components/NavBar'
 

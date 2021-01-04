@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import { HistoryCard } from './HistoryCard'
 import { InputForm } from './InputForm'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Card, Nav, Navbar} from 'react-bootstrap'
 
 
 
@@ -94,18 +94,28 @@ export const CardStack = () => {
     }
 
     return (
-        <div>
-            <Row>
-            <Col md={9}>
-                <InputForm userInput={userInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear} onToggle={handleToggle}/>
-            </Col>
-            <Col md={3}>                
-                <HistoryCard cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
-            </Col>
+        <div >
+            <Row className="home">
+                <Col md={8} className="inputForm">
+                    <InputForm userInput={userInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} onFormClear={handleFormClear} onToggle={handleToggle}/>
+                </Col>
+
+                <Col className="history">      
+                    <Card style={{ width: "auto", height: '37rem', paddingRight:0}}>
+                        <Card.Header >
+                            <Nav variant="tabs" defaultActiveKey="history">
+                            <Nav.Item>
+                                <Nav.Link href="history">History</Nav.Link>
+                            </Nav.Item>
+                            </Nav>
+                        </Card.Header>
+                        <Card.Body>
+                            <HistoryCard cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
+                        </Card.Body>
+                    </Card>
+                </Col>
             </Row>
             <br />
-            
-            
         </div>
     )
 }

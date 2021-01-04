@@ -66,7 +66,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                             <Form.Control type="number" placeholder="Key Length" name="keyLength" 
                                 value={userInput.keyLength} onChange={handleChange} disabled={disableKeyLength}/>
                         </Col>
-                        <Col md={{offset:2}}>
+                        <Col md={{offset:1, span:0}} className="clearBtn">
                             <Clear onFormClear={handleClear} 
                                 disabled={userInput.addCard === "" && userInput.key === "" && userInput.translated === ""}/>
                         </Col>

@@ -14,20 +14,24 @@ export const HistoryCard = ({cards, onCardClick, onCardDelete}) => {
 
 
     return(
-        <div>
-            {cards.map(card => {
+        <div id="scrollBar">
+            {cards.slice(0).reverse().map(card => {
                 return(
                 <>
-                    <Card style={{ width: '18rem', height: '8rem'}} key={card.id} onClick={() => handleClick(card)}>
-                        <Card.Header>
-                                Encrypt
-                                <Button size="sm" variant="outline-danger" onClick={(event) => handleDelete(event, card.id)}>X</Button>
-                        </Card.Header>
+                    <Card className="historyCard" style={{ width: 'auto', height: '8rem'}} key={card.id} >
+                        
                         <Card.Body>
                             <Card.Subtitle>{card.key}</Card.Subtitle>
                             <Card.Text >{card.content}</Card.Text>
 
                         </Card.Body>
+                        <Card.Header style={{ width: 'auto'}}>
+                                
+                                <Button size="sm" variant="danger" onClick={(event) => handleDelete(event, card.id)}>Delete</Button>
+
+                                <Button size="sm" variant="outline-info" onClick={() => handleClick(card)}>Show</Button>
+
+                        </Card.Header>
                     </Card>
                   </>
                 )
