@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import { Clear } from './Buttons/Clear'
+import { Swap } from './Buttons/Swap'
+import { Switch } from './Buttons/Switch'
+
 import { Card, Nav, Form, Button, ButtonGroup, Col } from 'react-bootstrap'
 
 
 
-export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, onToggle} ) => {
+export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, onToggle, onSwap, onSwitch} ) => {
 
     const [disableKeyLength, setDisableKeyLength] = useState(true)
     const [requireKey, setRequireKey] = useState(true)
@@ -33,8 +36,16 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
         }else if(event === "#decrypt"){
             setDisableKeyLength(false)
             setRequireKey(false)
-            setPlaceHolder("Input Here...\n\n( leave Key or Key Length empty if unknown )")
+            setPlaceHolder("Input Here... \n\n ( leave Key or Key Length empty if unknown )")
         }
+    }
+
+    const handleSwap = () => {
+        onSwap()
+    }
+
+    const handleSwitch = () => {
+        onSwitch()
     }
     
     return(
@@ -48,6 +59,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                 <Nav.Item>
                     <Nav.Link href="#decrypt" >Decrypt</Nav.Link>
                 </Nav.Item>
+                <Switch onSwitch={handleSwitch}/>
                 </Nav>
             </Card.Header>
             <Card.Body>
@@ -66,7 +78,10 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                             <Form.Control type="number" placeholder="Key Length" name="keyLength" 
                                 value={userInput.keyLength} onChange={handleChange} disabled={disableKeyLength}/>
                         </Col>
-                        <Col md={{offset:1, span:0}} className="clearBtn">
+                        <Col md={{offset:1, span:0}} >
+                            <Swap onSwap={handleSwap} disabled={userInput.addCard === "" && userInput.translated === ""}/>
+                        </Col>
+                        <Col md="auto" className="clearBtn">
                             <Clear onFormClear={handleClear} 
                                 disabled={userInput.addCard === "" && userInput.key === "" && userInput.translated === ""}/>
                         </Col>

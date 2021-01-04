@@ -48,13 +48,13 @@ def create():
         else:
             key, translated = decode2(request_data['content'])
             request_data['key'] = key
-
     card = Card(content=request_data['content'],key=request_data['key'], keyLength=request_data['keyLength'], translated=translated, translateType=request_data['type'])
 
-    db.session.add(card)
-    db.session.commit()
-
+    if request_data['save']:
+        db.session.add(card)
+        db.session.commit()
     message = 'Card '+str(card.id)+' created'
+
     return {'201': message, 'translatedText': translated, 'key':request_data['key']}
 
 @app.route('/api/<int:id>', methods = ['POST'])
