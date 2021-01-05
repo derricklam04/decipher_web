@@ -3,16 +3,14 @@ import { Clear } from './Buttons/Clear'
 import { Swap } from './Buttons/Swap'
 import { Switch } from './Buttons/Switch'
 
-import { Card, Nav, Form, Button, ButtonGroup, Col } from 'react-bootstrap'
+import { Card, Nav, Form, Button, Col, OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 
 
-export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, onToggle, onSwap, onSwitch} ) => {
+export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, onToggle, onSwap, onSwitch, onClearKey} ) => {
 
     const [disableKeyLength, setDisableKeyLength] = useState(true)
     const [requireKey, setRequireKey] = useState(true)
-    const [placeHolder, setPlaceHolder] = useState("Input Here...")
-
 
     const handleChange = (event) => {
         onFormChange(event)
@@ -32,11 +30,11 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
         if(event === "#encrypt"){
             setDisableKeyLength(true)
             setRequireKey(true)
-            setPlaceHolder("Input Here...")
+            onClearKey()
+
         }else if(event === "#decrypt"){
             setDisableKeyLength(false)
             setRequireKey(false)
-            setPlaceHolder("Input Here... \n\n ( leave Key or Key Length empty if unknown )")
         }
     }
 
@@ -65,25 +63,33 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
             <Card.Body>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group>
-                        <Form.Control as="textarea" placeholder ={placeHolder} rows={8} name="addCard" required value={userInput.addCard} onChange={handleChange}/>
+                        <Form.Control as="textarea" placeholder="Input Here..." rows={8} name="addCard" required 
+                            value={userInput.addCard} onChange={handleChange}/>
                     </Form.Group>
 
                     <Form.Group>
                     <Form.Row>
                         <Col md={5}>
-                            <Form.Control type="text" placeholder="Enter Key" name="key" required={requireKey} value={userInput.key} 
+                        <OverlayTrigger key='top' placement='top' onToggle={requireKey}
+                            overlay={<Tooltip id={`tooltip-top`}>Leave <strong>Empty</strong> if Unknown</Tooltip>}>
+                            <Form.Control type="text" placeholder="Enter Key [a-zA-Z]" name="key" required={requireKey} value={userInput.key} 
                                 onChange={handleChange} />
+                        </OverlayTrigger>
                         </Col>
+
                         <Col md={2}>
+                        <OverlayTrigger key='top' placement='top' onToggle={requireKey}
+                            overlay={<Tooltip id={`tooltip-top`}>Leave <strong>Empty</strong> if Unknown</Tooltip>}>
                             <Form.Control type="number" placeholder="Key Length" name="keyLength" 
                                 value={userInput.keyLength} onChange={handleChange} disabled={disableKeyLength}/>
+                        </OverlayTrigger>
                         </Col>
                         <Col md={{offset:1, span:0}} >
                             <Swap onSwap={handleSwap} disabled={userInput.addCard === "" && userInput.translated === ""}/>
                         </Col>
                         <Col md="auto" className="clearBtn">
                             <Clear onFormClear={handleClear} 
-                                disabled={userInput.addCard === "" && userInput.key === "" && userInput.translated === ""}/>
+                                disabled={userInput.addCard === "" && userInput.key === "" && userInput.keyLength ==="" && userInput.translated === ""}/>
                         </Col>
                         <Col md="auto">
                             <Button variant="success" type="submit" >Submit </Button>

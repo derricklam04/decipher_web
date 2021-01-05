@@ -1,9 +1,18 @@
 .App {
   text-align: left;
-}
 
+}
+.home-wrapper{
+  height: 37rem;
+}
 .home{
   margin-right: 0 !important;
+}
+
+.navbar{
+  .nav-link{
+    padding-left: 30px !important;
+  }
 }
 
 .inputForm{
@@ -30,6 +39,11 @@
       right: 5.5px;
     }
   }
+  .switch{
+    margin-left: 61%;
+    margin-top: 10px;
+
+  }
 }
 
 .history{
@@ -43,20 +57,28 @@
 
     }
     .card-header{
-      height: 36px;
+      height: 35px;
       .btn{
         position: relative;
-        bottom: 10px;
-        left:15px;
+        bottom: 50px;
+        left:19px;
 
         width: 5rem !important;
-        margin-left: 5px;
+        margin-left: 6px;
         float: right;
       }
+      .card-text{
+        position: relative;
+        bottom: 6px;
+        right: 10px;
+      }
     }
-    
-    
   }
-
 }
 
+.footer{
+  padding: 0 !important;
+  .nav-link{
+    padding: 0;
+  }
+}

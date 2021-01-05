@@ -11,7 +11,7 @@ export const Swap = ({onSwap, disabled}) => {
 
     return (
         <div>
-            <Button className="swap"onClick={handleSwap} variant="primary" disabled={disabled}>
+            <Button className="swap" onClick={handleSwap} variant="primary" disabled={disabled}>
                 <img className="img" height="24" src={icon}/>
             </Button>
         </div>

@@ -1,26 +1,21 @@
 import React from 'react';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
+import { Navbar, Nav} from 'react-bootstrap'
+import title from '../Icons/title.png'
 
 export const NavBar = () => {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="#home">Encryption Breaker</Navbar.Brand>
+            <Navbar.Brand className="title"><img className="image" height={60} src={title}/></Navbar.Brand>
+            <Nav className="ml-auto"></Nav>
+
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="mr-auto">
-                </Nav>
-                <Nav>
-                <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Vigenere Cipher</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">Caeser Cipher</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                </NavDropdown>
-                <Nav.Link eventKey={2} href="#memes">
-                    About
-                </Nav.Link>
-                </Nav>
+
+            <Nav className="ml-auto links">
+                <Nav.Link>Home</Nav.Link>
+                <Nav.Link >Learn More</Nav.Link>
+            </Nav>
             </Navbar.Collapse>
-            </Navbar>
+        </Navbar>
     )
 }

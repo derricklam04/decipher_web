@@ -48,6 +48,8 @@ def create():
         else:
             key, translated = decode2(request_data['content'])
             request_data['key'] = key
+    
+    request_data['key'] = request_data['key'].upper()
     card = Card(content=request_data['content'],key=request_data['key'], keyLength=request_data['keyLength'], translated=translated, translateType=request_data['type'])
 
     if request_data['save']:

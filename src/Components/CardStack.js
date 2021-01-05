@@ -105,12 +105,16 @@ export const CardStack = () => {
         setSave(!save)
     }
 
+    const handleClearKey = () => {
+        setUserInput({keyLength: ''});
+    }
+
     return (
-        <div >
+        <div className="home-wrapper">
             <Row className="home">
                 <Col md={8} className="inputForm">
-                    <InputForm userInput={userInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} 
-                    onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onSwitch={handleSwitch}/>
+                    <InputForm userInput={userInput} setUserInput={setUserInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} 
+                    onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onSwitch={handleSwitch} onClearKey={handleClearKey}/>
                 </Col>
 
                 <Col className="history" >      
@@ -124,7 +128,7 @@ export const CardStack = () => {
                         </Card.Header>
                         <PerfectScrollbar>
                             <Card.Body>
-                            <HistoryCard cards={cards} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
+                            <HistoryCard cards={cards} type={type} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
                             </Card.Body>
                         </PerfectScrollbar>
                         

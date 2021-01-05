@@ -10,6 +10,7 @@ export const Switch = ({onSwitch}) => {
     }
     return (
         <Form.Check 
+            className="switch"
             onClick={handleSwitch}
             type="switch"
             id="custom-switch"
