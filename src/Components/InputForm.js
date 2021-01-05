@@ -48,7 +48,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
     
     return(
         <>        
-        <Card>
+        <Card style={{height: window.innerHeight-110}}>
             <Card.Header>
                 <Nav variant="tabs" defaultActiveKey="#encrypt" onSelect={handleToggle}>
                 <Nav.Item>
@@ -72,7 +72,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                         <Col md={5}>
                         <OverlayTrigger key='top' placement='top' onToggle={requireKey}
                             overlay={<Tooltip id={`tooltip-top`}>Leave <strong>Empty</strong> if Unknown</Tooltip>}>
-                            <Form.Control type="text" placeholder="Enter Key [a-zA-Z]" name="key" required={requireKey} value={userInput.key} 
+                            <Form.Control type="text" placeholder="Enter Key (English letters only)" name="key" required={requireKey} value={userInput.key} 
                                 onChange={handleChange} />
                         </OverlayTrigger>
                         </Col>

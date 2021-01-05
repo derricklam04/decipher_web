@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import { HistoryCard } from './HistoryCard'
 import { InputForm } from './InputForm'
-import { Row, Col, Card, Nav, Navbar} from 'react-bootstrap'
+import { Row, Col, Card, Nav, Navbar, Tab, Tabs} from 'react-bootstrap'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 
@@ -117,22 +117,19 @@ export const CardStack = () => {
                     onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onSwitch={handleSwitch} onClearKey={handleClearKey}/>
                 </Col>
 
-                <Col className="history" >      
-                    <Card style={{ width: "auto", height: '37rem', paddingRight:0}}>
-                        <Card.Header  >
-                            <Nav variant="tabs" defaultActiveKey="history">
-                            <Nav.Item>
-                                <Nav.Link href="history">History</Nav.Link>
-                            </Nav.Item>
-                            </Nav>
-                        </Card.Header>
-                        <PerfectScrollbar>
-                            <Card.Body>
-                            <HistoryCard cards={cards} type={type} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
-                            </Card.Body>
-                        </PerfectScrollbar>
-                        
-                    </Card>
+                <Col className="tabs" >      
+                    <Tabs className="tabs-header"defaultActiveKey="history" id="uncontrolled-tab-example"  >
+                        <Tab eventKey="history" title="History" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
+                            <PerfectScrollbar>
+                                <Card.Body>
+                                <HistoryCard cards={cards} type={type} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
+                                </Card.Body>
+                            </PerfectScrollbar>
+                        </Tab>
+                        <Tab eventKey="advanced" title="Advanced Settings">
+                            <p>h</p>
+                        </Tab>
+                    </Tabs>
                 </Col>
             </Row>
             <br />

@@ -46,9 +46,25 @@
   }
 }
 
-.history{
+.tabs{
   padding-right: 0 !important;
   padding-left: 0 !important;
+  border-left: 1px solid rgba(0,0,0,.125);
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  border-right: 1px solid rgba(0,0,0,.125);
+  border-radius: .20rem;
+
+  .tabs-header{
+    padding-left: 2.5%;
+    padding-top: 2.7%;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+
+  }
+
+  .tab-content{
+    
+  }
 
   .historyCard{
     margin-bottom: 15px;
