@@ -1,5 +1,5 @@
 import './App.scss';
-import { CardStack } from './Components/CardStack'
+import { Home } from './Components/Home'
 import { NavBar} from './Components/NavBar'
 import { Footer} from './Components/Footer'
 
@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <NavBar/>
-      <CardStack/>
+      <Home/>
       <Footer/>
     </div>
   );

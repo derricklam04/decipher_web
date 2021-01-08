@@ -35,6 +35,7 @@ def index():
 def create():
     request_data = json.loads(request.data)
     translateType = request_data['type']
+    freqTable = request_data['freqTable']
 
     translated = ""
     if translateType == "#encrypt":
@@ -43,10 +44,11 @@ def create():
         if request_data['key'] != "": # if key is known
             translated = decode(request_data['content'], request_data['key'])
         elif request_data['keyLength'] != "": # if keyLength is known
-            key, translated = decode1(request_data['content'], request_data['keyLength'])
+            key, translated = decode1(request_data['content'], request_data['keyLength'], freqTable)
             request_data['key'] = key
-        else:
-            key, translated = decode2(request_data['content'])
+        else:  # both unknown
+            ic = request_data['ic']
+            key, translated = decode2(request_data['content'], ic, freqTable)
             request_data['key'] = key
     
     request_data['key'] = request_data['key'].upper()

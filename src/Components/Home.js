@@ -1,15 +1,19 @@
 import React, {useState, useEffect, useReducer} from 'react';
 import { HistoryCard } from './HistoryCard'
 import { InputForm } from './InputForm'
-import { Row, Col, Card, Nav, Navbar} from 'react-bootstrap'
+import {Settings} from './Settings'
+import { Row, Col, Card, Nav, Navbar, Tab, Tabs} from 'react-bootstrap'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
 
-export const CardStack = () => {
+export const Home = () => {
 
     const [cards, setCards] = useState([])
     const [type, setType] = useState('#encrypt')
     const [save, setSave] = useState(true)
+
+    const [ic, setIc] = useState(0.615)
+    const [freqTable, setFreqTable] = useState("wiki")
 
     const [userInput, setUserInput] = useReducer(
         (state, newState) => ({...state,  ...newState}),
@@ -42,7 +46,10 @@ export const CardStack = () => {
                 key: userInput.key,
                 keyLength: userInput.keyLength,
                 type: type,
-                save: save
+                save: save,
+
+                ic: ic,
+                freqTable: freqTable
             }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
@@ -109,6 +116,16 @@ export const CardStack = () => {
         setUserInput({keyLength: ''});
     }
 
+    const handleIcChange = (icChange) => {
+        setIc(icChange/1000)
+        console.log(icChange)
+    }
+
+    const handleFreqChange = (event) => {
+        setFreqTable(event)
+        console.log(event)
+    }
+
     return (
         <div className="home-wrapper">
             <Row className="home">
@@ -117,22 +134,19 @@ export const CardStack = () => {
                     onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onSwitch={handleSwitch} onClearKey={handleClearKey}/>
                 </Col>
 
-                <Col className="history" >      
-                    <Card style={{ width: "auto", height: '37rem', paddingRight:0}}>
-                        <Card.Header  >
-                            <Nav variant="tabs" defaultActiveKey="history">
-                            <Nav.Item>
-                                <Nav.Link href="history">History</Nav.Link>
-                            </Nav.Item>
-                            </Nav>
-                        </Card.Header>
-                        <PerfectScrollbar>
-                            <Card.Body>
-                            <HistoryCard cards={cards} type={type} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
-                            </Card.Body>
-                        </PerfectScrollbar>
-                        
-                    </Card>
+                <Col className="tabs" >      
+                    <Tabs className="tabs-header"defaultActiveKey="history" id="uncontrolled-tab-example"  >
+                        <Tab eventKey="history" title="History" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
+                            <PerfectScrollbar>
+                                <Card.Body>
+                                <HistoryCard cards={cards} type={type} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
+                                </Card.Body>
+                            </PerfectScrollbar>
+                        </Tab>
+                        <Tab eventKey="advanced" title="Advanced Settings" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
+                            <Settings onIcChange={handleIcChange} onFreqChange={handleFreqChange} freqTable={freqTable}/>
+                        </Tab>
+                    </Tabs>
                 </Col>
             </Row>
             <br />
