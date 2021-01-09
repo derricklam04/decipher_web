@@ -18,9 +18,9 @@ export const ResultsModal = ({showModal, onClose, cards, onSelect}) => {
           centered
         >
           <Modal.Header closeButton>
-            <Modal.Title>Alert! Multiple Results Found </Modal.Title>
+            <Modal.Title>Multiple Results Found </Modal.Title>
           </Modal.Header>
-          <Modal.Body>Select the most probable result:
+          <Modal.Body>
             <ResultCards cards={cards} onSelect={onSelect}/>
           </Modal.Body>
         </Modal>

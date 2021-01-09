@@ -232,7 +232,7 @@ def decode2(ciphertext, global_ic, table):
         ic_set[keylength] = groups_ic
         # STEP 4 - Assume current keylength if IC is great enough
         if groups_ic > global_ic:  # assume current key length
-            print(keylength, groups_ic)
+            #print(keylength, groups_ic)
 
             cipherkey = ""
             for group in groups:
@@ -303,7 +303,7 @@ def decode2(ciphertext, global_ic, table):
                     plaintext += c
             
             # RETURN
-            print(cipherkey)
+            #print(cipherkey)
             if results:
                 keys = list(results.keys()) # CHECK if key is repeated
 

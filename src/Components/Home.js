@@ -16,7 +16,10 @@ export const Home = () => {
     const handleShowError = () => setErrorModal(true);
 
     const [showResultsModal, setResultsModal] = useState(false);
-    const handleCloseResults = () => setResultsModal(false);
+    const handleCloseResults = () => {
+        setResultsModal(false);
+        setResults([])
+    }
     const handleShowResults = () => setResultsModal(true);
     const [results, setResults] = useState([]);
 
@@ -76,6 +79,9 @@ export const Home = () => {
         }
 
         if(sendJob){
+            if (type==='#decrypt' && userInput.key==="" && userInput.keyLength===""){
+                handleShowResults();
+            }
             fetch('/api/create', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -98,8 +104,6 @@ export const Home = () => {
                         handleShowError();
                     }else if(message['multiple']==='true'){
                         setResults(message['results'])
-                        
-                        handleShowResults();
                     }else{
                         setUserInput({translated: message['translatedText'] });
                         setUserInput({key: message['key'] });
@@ -178,6 +182,7 @@ export const Home = () => {
         setUserInput({translated: value});
         setUserInput({key: key});
         handleCloseResults();
+        setResults([]);
     }
 
     return (

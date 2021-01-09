@@ -46,7 +46,9 @@
   .error{
     border-color: red;
   }
+  
 }
+
 
 .tabs{
   padding-right: 0 !important;
@@ -122,4 +124,11 @@
   .nav-link{
     padding: 0;
   }
+}
+
+.loader{
+  margin-top: 30px;
+  margin-bottom:30px;
+  text-align: center;
+  color: grey;
 }
