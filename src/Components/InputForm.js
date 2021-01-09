@@ -72,12 +72,11 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
 
                     <Form.Group>
                     <Form.Row>
-                        <Col md={4}>
+                        <Col md={5}>
                         <OverlayTrigger key='bottom' placement='bottom' 
                             overlay={<Tooltip >Enter <strong>English Letters</strong> Only</Tooltip>}>
-                            <Form.Control pattern="[a-zA-Z]+" type="text" 
-                            placeholder="Enter Key" name="key" required={requireKey} value={userInput.key} isInvalid={onKeyError}
-                                onChange={handleChange} />
+                            <Form.Control type="text" placeholder="Enter Key" name="key" 
+                            value={userInput.key} isInvalid={onKeyError} onChange={handleChange} />
                         </OverlayTrigger>
                         </Col>
 
@@ -88,7 +87,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                                 value={userInput.keyLength} onChange={handleChange} disabled={disableKeyLength}/>
                         </OverlayTrigger>
                         </Col>
-                        <Col md={{offset:2, span:0}} >
+                        <Col md={{offset:1, span:0}} >
                             <Swap onSwap={handleSwap} disabled={userInput.addCard === "" && userInput.translated === ""}/>
                         </Col>
                         <Col md="auto" className="clearBtn">
@@ -96,7 +95,9 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                                 disabled={userInput.addCard === "" && userInput.key === "" && userInput.keyLength ==="" && userInput.translated === ""}/>
                         </Col>
                         <Col md="auto">
-                            <Button variant="success" type="submit" disabled={userInput.addCard === ""}> Submit </Button>
+                            <Button variant="success" type="submit" 
+                            disabled={(requireKey===true && userInput.key === "") || userInput.addCard === ""}> 
+                            Submit </Button>
                         </Col>
                     </Form.Row>
                     </Form.Group>

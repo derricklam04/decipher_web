@@ -2,17 +2,29 @@ import React, {useState, useEffect, useReducer} from 'react';
 import { HistoryCard } from './HistoryCard'
 import { InputForm } from './InputForm'
 import {Settings} from './Settings'
-import { Row, Col, Card, Nav, Navbar, Tab, Tabs} from 'react-bootstrap'
+import { ErrorModal } from './Modal/ErrorModal'
+import { ResultsModal } from './Modal/ResultsModal'
+
+import { Row, Col, Card, Tab, Tabs} from 'react-bootstrap'
 import PerfectScrollbar from 'react-perfect-scrollbar'
+import { ResultCards } from './Modal/ResultCards';
 
 
 export const Home = () => {
+    const [showErrorModal, setErrorModal] = useState(false);
+    const handleCloseError = () => setErrorModal(false);
+    const handleShowError = () => setErrorModal(true);
+
+    const [showResultsModal, setResultsModal] = useState(false);
+    const handleCloseResults = () => setResultsModal(false);
+    const handleShowResults = () => setResultsModal(true);
+    const [results, setResults] = useState([]);
 
     const [cards, setCards] = useState([])
     const [type, setType] = useState('#encrypt')
     const [save, setSave] = useState(true)
 
-    const [ic, setIc] = useState(0.615)
+    const [ic, setIc] = useState(0.0615)
     const [freqTable, setFreqTable] = useState("wiki")
 
     const [keyError, setKeyError] = useState(false)
@@ -82,9 +94,17 @@ export const Home = () => {
             }).then(response => response.json())
             .then(message=> {
                     console.log(message)
-                    setUserInput({translated: message['translatedText'] });
-                    setUserInput({key: message['key'] });
-                    updateCardStack()
+                    if(message['error']==='true'){
+                        handleShowError();
+                    }else if(message['multiple']==='true'){
+                        setResults(message['results'])
+                        
+                        handleShowResults();
+                    }else{
+                        setUserInput({translated: message['translatedText'] });
+                        setUserInput({key: message['key'] });
+                        updateCardStack();
+                    }
             })
         }
     }
@@ -145,7 +165,7 @@ export const Home = () => {
     }
 
     const handleIcChange = (icChange) => {
-        setIc(icChange/1000)
+        setIc(icChange/10000)
         console.log(icChange)
     }
 
@@ -154,8 +174,16 @@ export const Home = () => {
         console.log(event)
     }
 
+    const handleSelect = (key, value) => {
+        setUserInput({translated: value});
+        setUserInput({key: key});
+        handleCloseResults();
+    }
+
     return (
         <div className="home-wrapper">
+            <ErrorModal showModal={showErrorModal} onClose={handleCloseError}/>
+            <ResultsModal showModal={showResultsModal} onClose={handleCloseResults} cards={results} onSelect={handleSelect}/>
             <Row className="home">
                 <Col md={8} className="inputForm">
                     <InputForm userInput={userInput} setUserInput={setUserInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} 

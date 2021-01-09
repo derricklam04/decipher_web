@@ -15,21 +15,21 @@ export const Settings = ({onIcChange, onFreqChange, freqTable}) => {
 
     const handleReset = () =>{
         setIc(615)
-        onIcChange(0.615)
+        onIcChange(615)
         onFreqChange("wiki")
     }
 
     return(
         <Form className="settings">
             <Form.Label><strong>Index of Coincidence</strong></Form.Label>
-            <Form.Text className="sublabel">Recommended Range [0.600 - 0.650]</Form.Text>
+            <Form.Text className="sublabel">Recommended Range [0.0600 - 0.0650]</Form.Text>
             <Form.Group as={Row}>
                 <Col xs="9">
                     <RangeSlider value={ic} min={400} max={800} onChange={e => setIc(e.target.value)} 
                     tooltipLabel={ic=> `0.${ic}`} onAfterChange={handleIcChange}/>
                 </Col>
                 <Col xs="3">
-                    <Form.Control value={ic / 1000}/>
+                    <Form.Control value={ic / 10000}/>
                 </Col>
             </Form.Group>
             <Form.Group >

@@ -70,29 +70,10 @@
     
   }
 
-  .historyCard{
-    margin-bottom: 15px;
-
-    .card-body{
-
-    }
-    .card-header{
-      height: 35px;
-      .btn{
-        position: relative;
-        bottom: 50px;
-        left:19px;
-
-        width: 5rem !important;
-        margin-left: 6px;
-        float: right;
-      }
-      .card-text{
-        position: relative;
-        bottom: 6px;
-        right: 10px;
-      }
-    }
+  .empty{
+    margin-top: 30px;
+    text-align: center;
+    color: grey;
   }
 
   .settings{
@@ -103,6 +84,35 @@
     .sublabel{
       margin-top: 0;
       margin-bottom: 10px;
+    }
+  }
+}
+.historyCard{
+  margin-bottom: 15px;
+  .card-body{
+    .card-text{
+      margin-top: 4px;
+    }
+  }
+  
+  .card-header{
+    height: 35px;
+    .btn{
+      position: relative;
+      bottom: 50px;
+      left:19px;
+
+      width: 5rem;
+      margin-left: 6px;
+      float: right;
+    }
+    .select{
+      width:10rem;
+    }
+    .card-text{
+      position: relative;
+      bottom: 6px;
+      right: 10px;
     }
   }
 }

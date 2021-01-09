@@ -183,8 +183,8 @@ def find_ic(group):
         return sum
     return sum / denominator
 
-def decode2(ciphertext, ic, table):
-    print(ic)
+def decode2(ciphertext, global_ic, table):
+    print(global_ic)
     englishLetterFreq = {}
     if table == "wiki":
         englishLetterFreq = wikipedia
@@ -199,7 +199,8 @@ def decode2(ciphertext, ic, table):
     expFreq = [0 for _ in range(26)]
     for i in range(26):
         expFreq[i] = sort[i][1]
-
+    
+    results={}
 
     keylength = 1
     stop = False
@@ -229,9 +230,10 @@ def decode2(ciphertext, ic, table):
 
         groups_ic = sum_ic / keylength
         ic_set[keylength] = groups_ic
-
         # STEP 4 - Assume current keylength if IC is great enough
-        if groups_ic > ic:  # assume current key length
+        if groups_ic > global_ic:  # assume current key length
+            print(keylength, groups_ic)
+
             cipherkey = ""
             for group in groups:
                 # STEP 5 - TASK 3
@@ -299,11 +301,25 @@ def decode2(ciphertext, ic, table):
                     inc += 1
                 else:
                     plaintext += c
+            
+            # RETURN
+            print(cipherkey)
+            if results:
+                keys = list(results.keys()) # CHECK if key is repeated
 
-            return cipherkey, plaintext
+                for key in keys:
+                    if key in cipherkey:
+                        break
+                else:
+                    results[cipherkey] = plaintext
+                    if len(results) > 3:
+                        stop = True
+            else:
+                results[cipherkey] = plaintext
 
         # Continue if IC is too low
         keylength += 1
         if keylength == 101:
             stop = True
-    #print(ic_set)
+    
+    return(results)
