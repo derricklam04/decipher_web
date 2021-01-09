@@ -7,10 +7,11 @@ import { Card, Nav, Form, Button, Col, OverlayTrigger, Tooltip } from 'react-boo
 
 
 
-export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, onToggle, onSwap, onSwitch, onClearKey} ) => {
+export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, onToggle, onSwap, onSwitch, onClearKey, onKeyError, onLengthError} ) => {
 
     const [disableKeyLength, setDisableKeyLength] = useState(true)
     const [requireKey, setRequireKey] = useState(true)
+    const [placeholder, setPlaceholder] = useState("Input Here...")
 
     const handleChange = (event) => {
         onFormChange(event)
@@ -31,10 +32,12 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
             setDisableKeyLength(true)
             setRequireKey(true)
             onClearKey()
+            setPlaceholder("Input Here...")
 
         }else if(event === "#decrypt"){
             setDisableKeyLength(false)
             setRequireKey(false)
+            setPlaceholder("Input Here... \n\nLeave 'Key' or 'Key Length' empty if unknown")
         }
     }
 
@@ -61,30 +64,31 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                 </Nav>
             </Card.Header>
             <Card.Body>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} noValidate>
                     <Form.Group>
-                        <Form.Control as="textarea" placeholder="Input Here..." rows={8} name="addCard" required 
+                        <Form.Control as="textarea" placeholder={placeholder} rows={8} name="addCard" required 
                             value={userInput.addCard} onChange={handleChange}/>
                     </Form.Group>
 
                     <Form.Group>
                     <Form.Row>
-                        <Col md={5}>
-                        <OverlayTrigger key='top' placement='top' onToggle={requireKey}
-                            overlay={<Tooltip id={`tooltip-top`}>Leave <strong>Empty</strong> if Unknown</Tooltip>}>
-                            <Form.Control type="text" placeholder="Enter Key (English letters only)" name="key" required={requireKey} value={userInput.key} 
+                        <Col md={4}>
+                        <OverlayTrigger key='bottom' placement='bottom' 
+                            overlay={<Tooltip >Enter <strong>English Letters</strong> Only</Tooltip>}>
+                            <Form.Control pattern="[a-zA-Z]+" type="text" 
+                            placeholder="Enter Key" name="key" required={requireKey} value={userInput.key} isInvalid={onKeyError}
                                 onChange={handleChange} />
                         </OverlayTrigger>
                         </Col>
 
                         <Col md={2}>
-                        <OverlayTrigger key='top' placement='top' onToggle={requireKey}
-                            overlay={<Tooltip id={`tooltip-top`}>Leave <strong>Empty</strong> if Unknown</Tooltip>}>
-                            <Form.Control type="number" placeholder="Key Length" name="keyLength" 
+                        <OverlayTrigger key='bottom' placement='bottom' 
+                            overlay={<Tooltip>Enter <strong>Numbers</strong> only</Tooltip>}>
+                            <Form.Control type="text" placeholder="Key Length" name="keyLength" isInvalid={onLengthError} 
                                 value={userInput.keyLength} onChange={handleChange} disabled={disableKeyLength}/>
                         </OverlayTrigger>
                         </Col>
-                        <Col md={{offset:1, span:0}} >
+                        <Col md={{offset:2, span:0}} >
                             <Swap onSwap={handleSwap} disabled={userInput.addCard === "" && userInput.translated === ""}/>
                         </Col>
                         <Col md="auto" className="clearBtn">
@@ -92,7 +96,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                                 disabled={userInput.addCard === "" && userInput.key === "" && userInput.keyLength ==="" && userInput.translated === ""}/>
                         </Col>
                         <Col md="auto">
-                            <Button variant="success" type="submit" >Submit </Button>
+                            <Button variant="success" type="submit" disabled={userInput.addCard === ""}> Submit </Button>
                         </Col>
                     </Form.Row>
                     </Form.Group>

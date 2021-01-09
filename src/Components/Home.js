@@ -15,6 +15,10 @@ export const Home = () => {
     const [ic, setIc] = useState(0.615)
     const [freqTable, setFreqTable] = useState("wiki")
 
+    const [keyError, setKeyError] = useState(false)
+    const [lengthError, setLengthError] = useState(false)
+
+
     const [userInput, setUserInput] = useReducer(
         (state, newState) => ({...state,  ...newState}),
         {
@@ -36,31 +40,53 @@ export const Home = () => {
     const handleFormChange = (event) => {
         const {name, value} = event.target;
         setUserInput({[name]:value})
+        if(name==="key" && value===""){
+            setKeyError(false)
+        }
+        if(name==="keyLength" && value===""){
+            setLengthError(false)
+        }
     }
 
     const handleFormSubmit = () => {
-        fetch('/api/create', {
-            method: 'POST',
-            body: JSON.stringify({
-                content: userInput.addCard,
-                key: userInput.key,
-                keyLength: userInput.keyLength,
-                type: type,
-                save: save,
+        var sendJob = true
+        if (/[^a-zA-Z]/.test(userInput.key)){
+            setKeyError(true)
+            sendJob =false
+        }else{
+            setKeyError(false)
+        }
+        if(isNaN(userInput.keyLength)){
+            setLengthError(true)
+            sendJob =false
+        }else{
+            setLengthError(false)
+        }
 
-                ic: ic,
-                freqTable: freqTable
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        }).then(response => response.json())
-          .then(message=> {
-                console.log(message)
-                setUserInput({translated: message['translatedText'] });
-                setUserInput({key: message['key'] });
-                updateCardStack()
-        })
+        if(sendJob){
+            fetch('/api/create', {
+                method: 'POST',
+                body: JSON.stringify({
+                    content: userInput.addCard,
+                    key: userInput.key,
+                    keyLength: userInput.keyLength,
+                    type: type,
+                    save: save,
+
+                    ic: ic,
+                    freqTable: freqTable
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            }).then(response => response.json())
+            .then(message=> {
+                    console.log(message)
+                    setUserInput({translated: message['translatedText'] });
+                    setUserInput({key: message['key'] });
+                    updateCardStack()
+            })
+        }
     }
 
     const handleFormClear = () => {
@@ -68,6 +94,8 @@ export const Home = () => {
         setUserInput({key: ''});
         setUserInput({keyLength: ''});
         setUserInput({translated: ''});
+        setLengthError(false)
+        setKeyError(false)
 
     }
 
@@ -131,7 +159,8 @@ export const Home = () => {
             <Row className="home">
                 <Col md={8} className="inputForm">
                     <InputForm userInput={userInput} setUserInput={setUserInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} 
-                    onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onSwitch={handleSwitch} onClearKey={handleClearKey}/>
+                    onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onSwitch={handleSwitch} onClearKey={handleClearKey} 
+                    onKeyError={keyError} onLengthError={lengthError}/>
                 </Col>
 
                 <Col className="tabs" >      
