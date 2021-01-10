@@ -16,7 +16,7 @@ export const ErrorModal = ({showModal, onClose}) => {
           centered
         >
           <Modal.Header style={{backgroundColor:'#ffbfbf', textAlign:'center'}}>
-            <Modal.Title style={{color:"#383838"}}>Error: Unable to Decrypt inputted Cipher Text!</Modal.Title>
+            <Modal.Title style={{color:"#383838"}}>Error: Unable to Decrypt Inputted Cipher Text!</Modal.Title>
           </Modal.Header>
           <Modal.Body>Possible reasons:
             <ul>

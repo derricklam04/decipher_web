@@ -46,7 +46,7 @@ export const Home = () => {
     )
 
     useEffect(()=>{
-        fetch('/api').then(response => {
+        fetch('https://vigenere-code-cracker.herokuapp.com/api').then(response => {
             if(response.ok){
                 return response.json()
             }
@@ -85,7 +85,7 @@ export const Home = () => {
             if (type==='#decrypt' && userInput.key==="" && userInput.keyLength===""){
                 handleShowResults();
             }
-            fetch('/api/create', {
+            fetch('https://vigenere-code-cracker.herokuapp.com/api/create', {
                 method: 'POST',
                 body: JSON.stringify({
                     content: userInput.addCard,
@@ -109,6 +109,7 @@ export const Home = () => {
                         console.log(message['results'])
                         setResults(message['results'])
                     }else{
+                        setResultsModal(false);
                         setUserInput({translated: message['translatedText'] });
                         setUserInput({key: message['key'] });
                         updateCardStack();
@@ -128,7 +129,7 @@ export const Home = () => {
     }
 
     const updateCardStack = () => {
-        fetch('/api').then(response =>{
+        fetch('https://vigenere-code-cracker.herokuapp.com/api').then(response =>{
             if(response.ok){
                 return response.json()
             }
@@ -142,7 +143,7 @@ export const Home = () => {
     }
 
     const handleCardDelete = (cardID) =>{
-        fetch('/api/'+cardID, {
+        fetch('https://vigenere-code-cracker.herokuapp.com/api/'+cardID, {
             method: 'POST',
             body: JSON.stringify({
                 id: cardID
@@ -189,7 +190,7 @@ export const Home = () => {
         setResults([]);
 
         if(save){
-            fetch('/api/add', {
+            fetch('https://vigenere-code-cracker.herokuapp.com/api/add', {
                 method: 'POST',
                 body: JSON.stringify({
                     content: userInput.addCard,

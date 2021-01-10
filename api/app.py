@@ -26,6 +26,9 @@ def card_to_json(card):
         'translated': card.translated,
         'translateType': card.translateType
     }
+@app.route('/', methods =['GET'])
+def default():
+    return jsonify({'res':'hi'})
 
 @app.route('/api', methods =['GET'])
 def index():
