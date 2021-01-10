@@ -9,9 +9,9 @@ import { Card, Nav, Form, Button, Col, OverlayTrigger, Tooltip } from 'react-boo
 
 export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, onToggle, onSwap, onSwitch, onClearKey, onKeyError, onLengthError} ) => {
 
-    const [disableKeyLength, setDisableKeyLength] = useState(true)
-    const [requireKey, setRequireKey] = useState(true)
-    const [placeholder, setPlaceholder] = useState("Input Here...")
+    const [disableKeyLength, setDisableKeyLength] = useState(false)
+    const [requireKey, setRequireKey] = useState(false)
+    const [placeholder, setPlaceholder] = useState("Input Here... \n\nLeave 'Key' or 'Key Length' empty if unknown")
 
     const handleChange = (event) => {
         onFormChange(event)
@@ -53,13 +53,14 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
         <>        
         <Card style={{height: window.innerHeight-110}}>
             <Card.Header>
-                <Nav variant="tabs" defaultActiveKey="#encrypt" onSelect={handleToggle}>
-                <Nav.Item>
-                    <Nav.Link href="#encrypt" >Encrypt</Nav.Link>
-                </Nav.Item>
+                <Nav variant="tabs" defaultActiveKey="#decrypt" onSelect={handleToggle}>
                 <Nav.Item>
                     <Nav.Link href="#decrypt" >Decrypt</Nav.Link>
                 </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="#encrypt" >Encrypt</Nav.Link>
+                </Nav.Item>
+                
                 <Switch onSwitch={handleSwitch}/>
                 </Nav>
             </Card.Header>
@@ -75,7 +76,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                         <Col md={5}>
                         <OverlayTrigger key='bottom' placement='bottom' 
                             overlay={<Tooltip >Enter <strong>English Letters</strong> Only</Tooltip>}>
-                            <Form.Control type="text" placeholder="Enter Key" name="key" 
+                            <Form.Control type="search" placeholder="Enter Key" name="key" 
                             value={userInput.key} isInvalid={onKeyError} onChange={handleChange} />
                         </OverlayTrigger>
                         </Col>
@@ -83,7 +84,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                         <Col md={2}>
                         <OverlayTrigger key='bottom' placement='bottom' 
                             overlay={<Tooltip>Enter <strong>Numbers</strong> only</Tooltip>}>
-                            <Form.Control type="text" placeholder="Key Length" name="keyLength" isInvalid={onLengthError} 
+                            <Form.Control type="search" placeholder="Key Length" name="keyLength" isInvalid={onLengthError} 
                                 value={userInput.keyLength} onChange={handleChange} disabled={disableKeyLength}/>
                         </OverlayTrigger>
                         </Col>

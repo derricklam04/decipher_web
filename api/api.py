@@ -80,6 +80,16 @@ def delete(id):
     message = 'Card '+str(id)+' deleted successfully'
     return {'204': message}
 
+@app.route('/api/add', methods = ['POST'])
+def add():
+    request_data = json.loads(request.data)
+    card = Card(content=request_data['content'],key=request_data['key'], translated=request_data['translated'], translateType=request_data['type'])
+
+    db.session.add(card)
+    db.session.commit()
+
+    message = 'Card '+str(card.id)+' created'
+    return {'201': message}
 
 if __name__ == '__main__':
     app.run(debug=True)

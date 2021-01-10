@@ -25,7 +25,7 @@ export const Settings = ({onIcChange, onFreqChange, freqTable}) => {
             <Form.Text className="sublabel">Recommended Range [0.0600 - 0.0650]</Form.Text>
             <Form.Group as={Row}>
                 <Col xs="9">
-                    <RangeSlider value={ic} min={400} max={800} onChange={e => setIc(e.target.value)} 
+                    <RangeSlider value={ic} min={550} max={700} onChange={e => setIc(e.target.value)} 
                     tooltipLabel={ic=> `0.${ic}`} onAfterChange={handleIcChange}/>
                 </Col>
                 <Col xs="3">
@@ -41,7 +41,7 @@ export const Settings = ({onIcChange, onFreqChange, freqTable}) => {
                     <option value="wellesley">3) Wellesley College</option>
                     <option value="practical">4) Practical Cryptography</option>
                 </Form.Control>
-                <Form.Text style={{"margin-top":10}}>Source:</Form.Text>
+                <Form.Text style={{"margin-top":10}}>Sources:</Form.Text>
                 <ul>
                     <li><Form.Text>https://en.wikipedia.org/wiki/Letter_frequency</Form.Text></li>
                     <li><Form.Text>http://pi.math.cornell.edu/~mec/2003-2004/cryptography/subs/frequencies.html</Form.Text></li>

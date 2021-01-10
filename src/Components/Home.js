@@ -7,13 +7,14 @@ import { ResultsModal } from './Modal/ResultsModal'
 
 import { Row, Col, Card, Tab, Tabs} from 'react-bootstrap'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { ResultCards } from './Modal/ResultCards';
-
 
 export const Home = () => {
     const [showErrorModal, setErrorModal] = useState(false);
     const handleCloseError = () => setErrorModal(false);
-    const handleShowError = () => setErrorModal(true);
+    const handleShowError = () => {
+        setErrorModal(true);
+        setResultsModal(false);
+    }
 
     const [showResultsModal, setResultsModal] = useState(false);
     const handleCloseResults = () => {
@@ -24,7 +25,7 @@ export const Home = () => {
     const [results, setResults] = useState([]);
 
     const [cards, setCards] = useState([])
-    const [type, setType] = useState('#encrypt')
+    const [type, setType] = useState('#decrypt')
     const [save, setSave] = useState(true)
 
     const [ic, setIc] = useState(0.0615)
@@ -55,11 +56,13 @@ export const Home = () => {
     const handleFormChange = (event) => {
         const {name, value} = event.target;
         setUserInput({[name]:value})
-        if(name==="key" && value===""){
-            setKeyError(false)
+        if(name==="key"){
+            if(value==="")setKeyError(false);
+            setUserInput({keyLength: ''});
         }
-        if(name==="keyLength" && value===""){
-            setLengthError(false)
+        if(name==="keyLength"){
+            if(value==="")setLengthError(false);
+            setUserInput({key: ''});
         }
     }
 
@@ -103,6 +106,7 @@ export const Home = () => {
                     if(message['error']==='true'){
                         handleShowError();
                     }else if(message['multiple']==='true'){
+                        console.log(message['results'])
                         setResults(message['results'])
                     }else{
                         setUserInput({translated: message['translatedText'] });
@@ -183,6 +187,25 @@ export const Home = () => {
         setUserInput({key: key});
         handleCloseResults();
         setResults([]);
+
+        if(save){
+            fetch('/api/add', {
+                method: 'POST',
+                body: JSON.stringify({
+                    content: userInput.addCard,
+                    translated: value,
+                    key: key,
+                    type: type,
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            }).then(response => response.json())
+            .then(message=> {
+                console.log(message)
+                updateCardStack();
+            })
+        }
     }
 
     return (

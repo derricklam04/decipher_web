@@ -305,17 +305,17 @@ def decode2(ciphertext, global_ic, table):
             # RETURN
             #print(cipherkey)
             if results:
-                keys = list(results.keys()) # CHECK if key is repeated
+                keys = list(results.values()) # CHECK if key is repeated
 
                 for key in keys:
-                    if key in cipherkey:
+                    if key[0] in cipherkey:
                         break
                 else:
-                    results[cipherkey] = plaintext
+                    results[keylength] = [cipherkey, plaintext]                    
                     if len(results) > 3:
                         stop = True
             else:
-                results[cipherkey] = plaintext
+                results[keylength] = [cipherkey, plaintext]
 
         # Continue if IC is too low
         keylength += 1

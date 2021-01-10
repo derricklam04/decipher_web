@@ -15,16 +15,16 @@ export const ErrorModal = ({showModal, onClose}) => {
           keyboard={false}
           centered
         >
-          <Modal.Header>
-            <Modal.Title>Error: Unable to Decrypt inputted Cipher Text!</Modal.Title>
+          <Modal.Header style={{backgroundColor:'#ffbfbf', textAlign:'center'}}>
+            <Modal.Title style={{color:"#383838"}}>Error: Unable to Decrypt inputted Cipher Text!</Modal.Title>
           </Modal.Header>
           <Modal.Body>Possible reasons:
             <ul>
               <li>The Cipher Text is too short for Frequency Analysis</li>
-              <li>The Cipher Text is not derived from an Vignere Encryption of Plaintext</li>
+              <li>The Cipher Text is not derived from a Vigenère Encryption of a plaintext</li>
             </ul>
           </Modal.Body>
-          <Modal.Footer style={{paddingBottom:'0', paddingTop:'0'}}>
+          <Modal.Footer style={{backgroundColor:"#f5f5f5",paddingBottom:'0', paddingTop:'0'}}>
             <Button variant="secondary" onClick={handleClose}>
               Understood
             </Button>
