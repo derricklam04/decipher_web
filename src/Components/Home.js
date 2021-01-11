@@ -6,7 +6,6 @@ import { ErrorModal } from './Modal/ErrorModal'
 import { ResultsModal } from './Modal/ResultsModal'
 
 import { Row, Col, Card, Tab, Tabs} from 'react-bootstrap'
-import PerfectScrollbar from 'react-perfect-scrollbar'
 
 export const Home = () => {
     const [showErrorModal, setErrorModal] = useState(false);
@@ -24,9 +23,7 @@ export const Home = () => {
     const handleShowResults = () => setResultsModal(true);
     const [results, setResults] = useState([]);
 
-    const [cards, setCards] = useState([])
     const [type, setType] = useState('#decrypt')
-    const [save, setSave] = useState(true)
 
     const [ic, setIc] = useState(0.0615)
     const [freqTable, setFreqTable] = useState("wiki")
@@ -44,14 +41,6 @@ export const Home = () => {
             translated: ''
         }
     )
-
-    useEffect(()=>{
-        fetch('https://vigenere-code-cracker.herokuapp.com/api').then(response => {
-            if(response.ok){
-                return response.json()
-            }
-        }).then(data => setCards(data))
-    },[])
 
     const handleFormChange = (event) => {
         const {name, value} = event.target;
@@ -85,14 +74,13 @@ export const Home = () => {
             if (type==='#decrypt' && userInput.key==="" && userInput.keyLength===""){
                 handleShowResults();
             }
-            fetch('https://vigenere-code-cracker.herokuapp.com/api/create', {
+            fetch('api/create', {
                 method: 'POST',
                 body: JSON.stringify({
                     content: userInput.addCard,
                     key: userInput.key,
                     keyLength: userInput.keyLength,
                     type: type,
-                    save: save,
 
                     ic: ic,
                     freqTable: freqTable
@@ -112,7 +100,6 @@ export const Home = () => {
                         setResultsModal(false);
                         setUserInput({translated: message['translatedText'] });
                         setUserInput({key: message['key'] });
-                        updateCardStack();
                     }
             })
         }
@@ -128,33 +115,6 @@ export const Home = () => {
 
     }
 
-    const updateCardStack = () => {
-        fetch('https://vigenere-code-cracker.herokuapp.com/api').then(response =>{
-            if(response.ok){
-                return response.json()
-            }
-        }).then(data => setCards(data))
-    }
-
-    const handleCardClick = (card) => {
-        setUserInput({addCard: card.content});
-        setUserInput({key: card.key});
-        setUserInput({translated: card.translated});
-    }
-
-    const handleCardDelete = (cardID) =>{
-        fetch('https://vigenere-code-cracker.herokuapp.com/api/'+cardID, {
-            method: 'POST',
-            body: JSON.stringify({
-                id: cardID
-            })
-        }).then(response => response.json())
-            .then(data => {
-                console.log(data)
-                updateCardStack()
-        })
-    }
-
     const handleToggle = (event) => {
         setType(event)
     }
@@ -165,9 +125,6 @@ export const Home = () => {
         setUserInput({translated: temp});
     }
 
-    const handleSwitch = () => {
-        setSave(!save)
-    }
 
     const handleClearKey = () => {
         setUserInput({keyLength: ''});
@@ -188,25 +145,6 @@ export const Home = () => {
         setUserInput({key: key});
         handleCloseResults();
         setResults([]);
-
-        if(save){
-            fetch('https://vigenere-code-cracker.herokuapp.com/api/add', {
-                method: 'POST',
-                body: JSON.stringify({
-                    content: userInput.addCard,
-                    translated: value,
-                    key: key,
-                    type: type,
-                }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            }).then(response => response.json())
-            .then(message=> {
-                console.log(message)
-                updateCardStack();
-            })
-        }
     }
 
     return (
@@ -216,20 +154,13 @@ export const Home = () => {
             <Row className="home">
                 <Col md={8} className="inputForm">
                     <InputForm userInput={userInput} setUserInput={setUserInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} 
-                    onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onSwitch={handleSwitch} onClearKey={handleClearKey} 
+                    onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onClearKey={handleClearKey} 
                     onKeyError={keyError} onLengthError={lengthError}/>
                 </Col>
 
                 <Col className="tabs" >      
-                    <Tabs className="tabs-header"defaultActiveKey="history" id="uncontrolled-tab-example"  >
-                        <Tab eventKey="history" title="History" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
-                            <PerfectScrollbar>
-                                <Card.Body>
-                                <HistoryCard cards={cards} type={type} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
-                                </Card.Body>
-                            </PerfectScrollbar>
-                        </Tab>
-                        <Tab eventKey="advanced" title="Advanced Settings" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
+                    <Tabs className="tabs-header"defaultActiveKey="advanced" id="uncontrolled-tab-example"  >
+                        <Tab eventKey="advanced" title="Settings" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
                             <Settings onIcChange={handleIcChange} onFreqChange={handleFreqChange} freqTable={freqTable}/>
                         </Tab>
                     </Tabs>
