@@ -4,6 +4,7 @@ import { InputForm } from './InputForm'
 import {Settings} from './Settings'
 import { ErrorModal } from './Modal/ErrorModal'
 import { ResultsModal } from './Modal/ResultsModal'
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 import { Row, Col, Card, Tab, Tabs} from 'react-bootstrap'
 
@@ -23,7 +24,10 @@ export const Home = () => {
     const handleShowResults = () => setResultsModal(true);
     const [results, setResults] = useState([]);
 
+    const [cards, setCards] = useState([]) // [{'content': 'hello', 'key': 'key', 'translated': 'translated'}]
+    const [cardId, setCardId] = useState(0)
     const [type, setType] = useState('#decrypt')
+    const [save, setSave] = useState(true)
 
     const [ic, setIc] = useState(0.0615)
     const [freqTable, setFreqTable] = useState("wiki")
@@ -74,7 +78,6 @@ export const Home = () => {
             if (type==='#decrypt' && userInput.key==="" && userInput.keyLength===""){
                 handleShowResults();
             }
-            console.log("before fetchv3");
             fetch('api/create', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -82,6 +85,7 @@ export const Home = () => {
                     key: userInput.key,
                     keyLength: userInput.keyLength,
                     type: type,
+                    save: save,
 
                     ic: ic,
                     freqTable: freqTable
@@ -95,16 +99,26 @@ export const Home = () => {
                     if(message['error']==='true'){
                         handleShowError();
                     }else if(message['multiple']==='true'){
-                        console.log(message['results'])
                         setResults(message['results'])
                     }else{
                         setResultsModal(false);
                         setUserInput({translated: message['translatedText'] });
                         setUserInput({key: message['key'] });
+                        if (save){
+                            addToCards(userInput.addCard, userInput.key, message['translatedText'], type)
+                        }
                     }
             })
         }
     }
+
+    const addToCards = (addCard, key, translated, type) => {
+        cards.push({'id': cardId, 'content': addCard, 'key': key, 
+            'translated': translated, 'translateType': type})
+        setCardId(cardId+1)
+        console.log(cards)
+    }
+
 
     const handleFormClear = () => {
         setUserInput({addCard: ''});
@@ -114,6 +128,25 @@ export const Home = () => {
         setLengthError(false)
         setKeyError(false)
 
+    }
+    const handleCardClick = (id) => {
+        for(var i=0; i<cards.length; i ++){
+            if (cards[i]['id'] == id){
+                setUserInput({addCard: cards[i].content});
+                setUserInput({key: cards[i].key});
+                setUserInput({translated: cards[i].translated});
+                break;
+            }
+        }
+    }
+    const handleCardDelete = (id) =>{
+        for(var i=0; i<cards.length; i ++){
+            if (cards[i]['id'] == id){
+                cards.splice(i, 1);
+                setUserInput();
+                break;
+            }
+        }
     }
 
     const handleToggle = (event) => {
@@ -125,7 +158,9 @@ export const Home = () => {
         setUserInput({addCard: userInput.translated});
         setUserInput({translated: temp});
     }
-
+    const handleSwitch = () => {
+        setSave(!save)
+    }
 
     const handleClearKey = () => {
         setUserInput({keyLength: ''});
@@ -146,6 +181,10 @@ export const Home = () => {
         setUserInput({key: key});
         handleCloseResults();
         setResults([]);
+
+        if (save){
+            addToCards(userInput.addCard, key, userInput.translated, type)
+        }
     }
 
     return (
@@ -155,13 +194,20 @@ export const Home = () => {
             <Row className="home">
                 <Col md={8} className="inputForm">
                     <InputForm userInput={userInput} setUserInput={setUserInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} 
-                    onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onClearKey={handleClearKey} 
+                    onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onSwitch={handleSwitch} onClearKey={handleClearKey} 
                     onKeyError={keyError} onLengthError={lengthError}/>
                 </Col>
 
-                <Col className="tabs" >      
-                    <Tabs className="tabs-header"defaultActiveKey="advanced" id="uncontrolled-tab-example"  >
-                        <Tab eventKey="advanced" title="Settings" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
+                <Col className="tabs" >    
+                    <Tabs className="tabs-header"defaultActiveKey="history" id="uncontrolled-tab-example"  >
+                         <Tab eventKey="history" title="History" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
+                             <PerfectScrollbar>
+                                 <Card.Body>
+                                 <HistoryCard cards={cards} type={type} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
+                                 </Card.Body>
+                             </PerfectScrollbar>
+                         </Tab>
+                        <Tab eventKey="advanced" title="Advanced Settings" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>  
                             <Settings onIcChange={handleIcChange} onFreqChange={handleFreqChange} freqTable={freqTable}/>
                         </Tab>
                     </Tabs>

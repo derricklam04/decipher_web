@@ -60,6 +60,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                 <Nav.Item>
                     <Nav.Link href="#encrypt" >Encrypt</Nav.Link>
                 </Nav.Item>
+                <Switch onSwitch={handleSwitch}/>
                 </Nav>
             </Card.Header>
             <Card.Body>
