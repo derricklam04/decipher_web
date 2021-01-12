@@ -1,9 +1,9 @@
 {
-  "homepage": "https://derricklam04.github.io/decipher_web",
+  "homepage": "http://derricklam04.github.io/decipher_web/",
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:5000/",
+  "proxy": "http://vigenere-code-cracker.herokuapp.com/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

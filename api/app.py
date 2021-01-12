@@ -1,14 +1,13 @@
 from flask import Flask, jsonify, request, json
 # from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
-
 from algorithm import *
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route('/', methods =['GET'])
+@app.route('/api', methods =['GET'])
 def default():
     return jsonify({'start':'hello'})
 
@@ -17,6 +16,7 @@ def default():
 #     return jsonify([*map(card_to_json, Card.query.all())])
 
 @app.route('/api/create', methods = ['POST'])
+@cross_origin()
 def create():
     request_data = json.loads(request.data)
     translateType = request_data['type']

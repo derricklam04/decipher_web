@@ -74,6 +74,7 @@ export const Home = () => {
             if (type==='#decrypt' && userInput.key==="" && userInput.keyLength===""){
                 handleShowResults();
             }
+            console.log("before fetchv3");
             fetch('api/create', {
                 method: 'POST',
                 body: JSON.stringify({
