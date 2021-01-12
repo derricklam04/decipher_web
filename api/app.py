@@ -2,20 +2,22 @@ from flask import Flask, jsonify, request, json
 # from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
 from algorithm import *
+import os
 
-app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
+app = Flask(__name__ ,static_folder='./build',static_url_path='/')
+# cors = CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
 
-@app.route('/api', methods =['GET'])
-def default():
-    return jsonify({'start':'hello'})
+@app.route('/api')
+@cross_origin()
+def Welcome():
+    return "Welcome to the API!!!"
 
-# @app.route('/api', methods =['GET'])
-# def index():
-#     return jsonify([*map(card_to_json, Card.query.all())])
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
-@app.route('/api/create', methods = ['POST'])
+@app.route('/api/create', methods=["POST"])
 @cross_origin()
 def create():
     request_data = json.loads(request.data)
@@ -58,4 +60,4 @@ def create():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=False, port=os.environ.get('PORT', 80))
