@@ -6,6 +6,9 @@ import { ErrorModal } from './Modal/ErrorModal'
 import { ResultsModal } from './Modal/ResultsModal'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
+import settings from '../Icons/settings.png'
+import history from '../Icons/history.png'
+
 import { Row, Col, Card, Tab, Tabs} from 'react-bootstrap'
 
 export const Home = () => {
@@ -200,14 +203,16 @@ export const Home = () => {
 
                 <Col className="tabs" >    
                     <Tabs className="tabs-header"defaultActiveKey="history" id="uncontrolled-tab-example"  >
-                         <Tab eventKey="history" title="History" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
+                         <Tab eventKey="history" title={<span>History<img className="icons" height={18} src={history}/></span>} 
+                            style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
                              <PerfectScrollbar>
                                  <Card.Body>
                                  <HistoryCard cards={cards} type={type} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
                                  </Card.Body>
                              </PerfectScrollbar>
                          </Tab>
-                        <Tab eventKey="advanced" title="Advanced Settings" style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>  
+                        <Tab eventKey="advanced" title={<span>Advanced Settings<img className="icons" height={18} src={settings}/></span>}
+                             style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>  
                             <Settings onIcChange={handleIcChange} onFreqChange={handleFreqChange} freqTable={freqTable}/>
                         </Tab>
                     </Tabs>

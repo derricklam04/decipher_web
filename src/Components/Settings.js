@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Form, Col, Row, Button} from 'react-bootstrap'
 import RangeSlider from 'react-bootstrap-range-slider';
 
+
 export const Settings = ({onIcChange, onFreqChange, freqTable}) => {
     const [ic, setIc] = useState(615);
 

@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import { Clear } from './Buttons/Clear'
 import { Swap } from './Buttons/Swap'
 import { Switch } from './Buttons/Switch'
+import { ReactComponent as Lock} from '../Icons/lock.svg'
+import { ReactComponent as Unlock} from '../Icons/unlock.svg'
+
 
 import { Card, Nav, Form, Button, Col, OverlayTrigger, Tooltip } from 'react-bootstrap'
 
@@ -11,6 +14,9 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
 
     const [disableKeyLength, setDisableKeyLength] = useState(false)
     const [requireKey, setRequireKey] = useState(false)
+    const [lockColor, setLockColor] = useState("#4287f5")
+    const [unlockColor, setUnlockColor] = useState("black")
+
     const [placeholder, setPlaceholder] = useState("Input Here... \n\nLeave 'Key' or 'Key Length' empty if unknown")
 
     const handleChange = (event) => {
@@ -31,12 +37,18 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
         if(event === "#encrypt"){
             setDisableKeyLength(true)
             setRequireKey(true)
+            setLockColor("black")
+            setUnlockColor("#4287f5")
+
             onClearKey()
             setPlaceholder("Input Here...")
 
         }else if(event === "#decrypt"){
             setDisableKeyLength(false)
             setRequireKey(false)
+            setLockColor("#4287f5")
+            setUnlockColor("black")
+
             setPlaceholder("Input Here... \n\nLeave 'Key' or 'Key Length' empty if unknown")
         }
     }
@@ -55,10 +67,10 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
             <Card.Header>
                 <Nav variant="tabs" defaultActiveKey="#decrypt" onSelect={handleToggle}>
                 <Nav.Item>
-                    <Nav.Link href="#decrypt" >Decrypt</Nav.Link>
+                    <Nav.Link href="#decrypt" >Decrypt<Unlock className="locks" style={{height:16, width:16}} fill={unlockColor}/></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="#encrypt" >Encrypt</Nav.Link>
+                    <Nav.Link href="#encrypt" >Encrypt<Lock className="locks" style={{height:16, width:16}} fill={lockColor}/></Nav.Link>
                 </Nav.Item>
                 <Switch onSwitch={handleSwitch}/>
                 </Nav>

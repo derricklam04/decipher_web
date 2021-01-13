@@ -46,6 +46,13 @@
   .error{
     border-color: red;
   }
+
+  .locks{
+    position: relative;
+    left: 5.5px;
+    bottom: 2px;
+  }
+  
   
 }
 
@@ -65,6 +72,11 @@
     background-color: rgba(0,0,0,.03);
     a:focus {
       outline: none !important;
+    }
+    .icons{
+      position: relative;
+      left: 6px;
+      bottom: 2px;
     }
   }
 
