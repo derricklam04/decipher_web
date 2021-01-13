@@ -4,10 +4,13 @@ import { InputForm } from './InputForm'
 import {Settings} from './Settings'
 import { ErrorModal } from './Modal/ErrorModal'
 import { ResultsModal } from './Modal/ResultsModal'
-import PerfectScrollbar from 'react-perfect-scrollbar'
+import { WelcomeModal } from './Modal/WelcomeModal'
 
-import settings from '../Icons/settings.png'
-import history from '../Icons/history.png'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import Swal from "sweetalert2";  
+
+import {ReactComponent as Setting} from '../Icons/settings.svg'
+import {ReactComponent as History} from '../Icons/history.svg'
 
 import { Row, Col, Card, Tab, Tabs} from 'react-bootstrap'
 
@@ -18,7 +21,6 @@ export const Home = () => {
         setErrorModal(true);
         setResultsModal(false);
     }
-
     const [showResultsModal, setResultsModal] = useState(false);
     const handleCloseResults = () => {
         setResultsModal(false);
@@ -26,6 +28,11 @@ export const Home = () => {
     }
     const handleShowResults = () => setResultsModal(true);
     const [results, setResults] = useState([]);
+
+    const [showWelcomeModal, setWelcomeModal] = useState(true);
+    const handleCloseWelcome = () => {
+        setWelcomeModal(false);
+    }
 
     const [cards, setCards] = useState([]) // [{'content': 'hello', 'key': 'key', 'translated': 'translated'}]
     const [cardId, setCardId] = useState(0)
@@ -38,7 +45,6 @@ export const Home = () => {
     const [keyError, setKeyError] = useState(false)
     const [lengthError, setLengthError] = useState(false)
 
-
     const [userInput, setUserInput] = useReducer(
         (state, newState) => ({...state,  ...newState}),
         {
@@ -48,6 +54,18 @@ export const Home = () => {
             translated: ''
         }
     )
+
+    const [historyColor, setHistoryColor] = useState("black")
+    const [settingColor, setSettingColor] = useState("#4287f5")
+    const changeIconColor = (event) =>{
+        if(event==="history"){
+            setHistoryColor("black")
+            setSettingColor("#4287f5")
+        }else if(event ==="advanced"){
+            setHistoryColor("#4287f5")
+            setSettingColor("black")
+        }
+    }
 
     const handleFormChange = (event) => {
         const {name, value} = event.target;
@@ -194,6 +212,7 @@ export const Home = () => {
         <div className="home-wrapper">
             <ErrorModal showModal={showErrorModal} onClose={handleCloseError}/>
             <ResultsModal showModal={showResultsModal} onClose={handleCloseResults} cards={results} onSelect={handleSelect}/>
+            <WelcomeModal showModal={showWelcomeModal} onClose={handleCloseWelcome}/>
             <Row className="home">
                 <Col md={8} className="inputForm">
                     <InputForm userInput={userInput} setUserInput={setUserInput} onFormChange={handleFormChange} onFormSubmit={handleFormSubmit} 
@@ -202,17 +221,17 @@ export const Home = () => {
                 </Col>
 
                 <Col className="tabs" >    
-                    <Tabs className="tabs-header"defaultActiveKey="history" id="uncontrolled-tab-example"  >
-                         <Tab eventKey="history" title={<span>History<img className="icons" height={18} src={history}/></span>} 
-                            style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>
+                    <Tabs className="tabs-header"defaultActiveKey="history" id="uncontrolled-tab-example" onSelect={changeIconColor} >
+                         <Tab eventKey="history" title={<span>History<History className="icons" style={{height:16, width:16}} fill={historyColor}/></span>} 
+                            style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}} >
                              <PerfectScrollbar>
                                  <Card.Body>
                                  <HistoryCard cards={cards} type={type} onCardClick={handleCardClick} onCardDelete={handleCardDelete}/>
                                  </Card.Body>
                              </PerfectScrollbar>
                          </Tab>
-                        <Tab eventKey="advanced" title={<span>Advanced Settings<img className="icons" height={18} src={settings}/></span>}
-                             style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}}>  
+                        <Tab eventKey="advanced" title={<span>Advanced Settings<Setting className="icons" style={{height:16, width:16}} fill={settingColor}/></span>}
+                             style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}} >  
                             <Settings onIcChange={handleIcChange} onFreqChange={handleFreqChange} freqTable={freqTable}/>
                         </Tab>
                     </Tabs>

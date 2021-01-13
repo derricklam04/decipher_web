@@ -17,7 +17,7 @@ export const ResultsModal = ({showModal, onClose, cards, onSelect}) => {
           keyboard={false}
           centered
         >
-          <Modal.Header style={{backgroundColor:"#e6f4ff"}} closeButton>
+          <Modal.Header style={{backgroundColor:"#e6f4ff", display: "flex",justifyContent: "center",alignItems: "center"}} closeButton>
             <Modal.Title style={{color:"#383838"}}>Multiple Results Found!</Modal.Title>
           </Modal.Header>
           <Modal.Body>

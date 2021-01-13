@@ -36,7 +36,7 @@ export const Settings = ({onIcChange, onFreqChange, freqTable}) => {
             <Form.Group >
                 <Form.Label><strong>English Letter Frequency Table</strong></Form.Label>
                 <Form.Text className="sublabel">Select Table Data from:</Form.Text>
-                <Form.Control as="select" htmlSize={2} onChange={handleSelectTable} defaultValue="wiki" value={freqTable}>
+                <Form.Control as="select" htmlSize={4} onChange={handleSelectTable} defaultValue="wiki" value={freqTable}>
                     <option value="wiki">1) Wikipedia</option>
                     <option value="cornell">2) Cornell University</option>
                     <option value="wellesley">3) Wellesley College</option>

@@ -26,6 +26,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
     const handleSubmit = (event) => {
         event.preventDefault()
         onFormSubmit()
+        
     }
 
     const handleClear = () => {
