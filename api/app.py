@@ -48,7 +48,7 @@ def create():
         except:
             return {'error': 'true', 'multiple': 'false'}
     
-    # request_data['key'] = request_data['key'].upper()
+    request_data['key'] = request_data['key'].upper()
     # card = Card(content=request_data['content'],key=request_data['key'], keyLength=request_data['keyLength'], translated=translated, translateType=request_data['type'])
 
     # if request_data['save']:

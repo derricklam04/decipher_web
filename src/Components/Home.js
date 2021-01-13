@@ -7,29 +7,33 @@ import { ResultsModal } from './Modal/ResultsModal'
 import { WelcomeModal } from './Modal/WelcomeModal'
 
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import Swal from "sweetalert2";  
+
 
 import {ReactComponent as Setting} from '../Icons/settings.svg'
 import {ReactComponent as History} from '../Icons/history.svg'
 
 import { Row, Col, Card, Tab, Tabs} from 'react-bootstrap'
 
-export const Home = () => {
+export const Home = ({onShowError, onShowResults}) => {
+    
     const [showErrorModal, setErrorModal] = useState(false);
     const handleCloseError = () => setErrorModal(false);
     const handleShowError = () => {
-        setErrorModal(true);
         setResultsModal(false);
+        onShowError()
     }
     const [showResultsModal, setResultsModal] = useState(false);
     const handleCloseResults = () => {
         setResultsModal(false);
         setResults([])
     }
-    const handleShowResults = () => setResultsModal(true);
+    const handleShowResults = () => {
+        // onShowResults()
+        setResultsModal(true);
+    }
     const [results, setResults] = useState([]);
 
-    const [showWelcomeModal, setWelcomeModal] = useState(true);
+    const [showWelcomeModal, setWelcomeModal] = useState(false);
     const handleCloseWelcome = () => {
         setWelcomeModal(false);
     }
@@ -126,7 +130,7 @@ export const Home = () => {
                         setUserInput({translated: message['translatedText'] });
                         setUserInput({key: message['key'] });
                         if (save){
-                            addToCards(userInput.addCard, userInput.key, message['translatedText'], type)
+                            addToCards(userInput.addCard, message['key'], message['translatedText'], type)
                         }
                     }
             })

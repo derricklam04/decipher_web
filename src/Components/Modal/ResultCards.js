@@ -14,7 +14,7 @@ export const ResultCards = ({cards, onSelect}) => {
             <div className="loader">
                 <Loader type="BallTriangle" color="#00BFFF" height={80} width={80} />
                 <br/>
-                <p>Loading...</p>
+                <p>Waiting for response from server...</p>
             </div>
         )
     }
