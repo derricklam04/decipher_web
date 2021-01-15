@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { Clear } from './Buttons/Clear'
 import { Swap } from './Buttons/Swap'
-import { Switch } from './Buttons/Switch'
 import { ReactComponent as Lock} from '../Icons/lock.svg'
 import { ReactComponent as Unlock} from '../Icons/unlock.svg'
 
@@ -73,7 +72,6 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
                 <Nav.Item>
                     <Nav.Link href="#encrypt" >Encrypt<Lock className="locks" style={{height:16, width:16}} fill={lockColor}/></Nav.Link>
                 </Nav.Item>
-                <Switch onSwitch={handleSwitch}/>
                 </Nav>
             </Card.Header>
             <Card.Body>

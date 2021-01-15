@@ -22,8 +22,9 @@ export const ResultCards = ({cards, onSelect}) => {
         
         return(
             <div>
-            <h6>Select the most probable result:</h6>
             <div id="scrollBar">
+                <h6>Select the most probable result:</h6>
+
                 {Object.entries(cards).map(([key,value]) => {
                     return(
                     <>

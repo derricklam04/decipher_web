@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, Button} from 'react-bootstrap'
+import { Card, Button, Row, Col} from 'react-bootstrap'
+import arrow from '../Icons/right-arrow.png'
+
 
 
 export const HistoryCard = ({cards, onCardClick, onCardDelete}) => {
@@ -27,11 +29,19 @@ export const HistoryCard = ({cards, onCardClick, onCardDelete}) => {
                         <Card className="historyCard" style={{ width: 'auto', height: '9.3rem'}} key={card.id} >
                             
                             <Card.Body>
-                                <Card.Subtitle style={{maxHeight: '1rem', width:'25rem', overflow:"hidden"}}>{card.key}</Card.Subtitle>
-                                <Card.Text style={{maxHeight: '4.5rem', maxWidth:'25rem', overflow:"hidden"}} >{card.content}</Card.Text>
+                                <Card.Subtitle style={{maxHeight: '1rem', maxWidth:'25rem', overflow:"hidden"}}>{card.key}</Card.Subtitle>
+                                <Row>
+                                    <Col>
+                                    <Card.Text style={{ maxHeight: '4.5rem', maxWidth:'12rem', overflow:"hidden"}} >{card.content}</Card.Text>
+                                    </Col>
+                                    <img className="arrow" height={15} src={arrow}/>
+                                    <Col>
+                                    <Card.Text style={{maxHeight: '4.5rem', maxWidth:'12rem', overflow:"hidden"}} >{card.translated}</Card.Text>
+                                    </Col>
+                                </Row>
                             </Card.Body>
                             <Card.Header style={{ width: 'auto'}}>
-                                    <Card.Text>{card.translateType}ed</Card.Text>
+                                    <Card.Text style={{color:"#525252"}}>{card.translateType}ed</Card.Text>
                                     <Button size="sm" variant="danger" onClick={(event) => handleDelete(event, card.id)}>Remove</Button>
                                     <Button size="sm" variant="outline-info" onClick={() => handleClick(card.id)}>View</Button>
 

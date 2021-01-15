@@ -5,6 +5,7 @@ import {Settings} from './Settings'
 import { ErrorModal } from './Modal/ErrorModal'
 import { ResultsModal } from './Modal/ResultsModal'
 import { WelcomeModal } from './Modal/WelcomeModal'
+import { Switch } from './Buttons/Switch'
 
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
@@ -208,7 +209,7 @@ export const Home = ({onShowError, onShowResults}) => {
         setResults([]);
 
         if (save){
-            addToCards(userInput.addCard, key, userInput.translated, type)
+            addToCards(userInput.addCard, key, value, type)
         }
     }
 
@@ -223,8 +224,10 @@ export const Home = ({onShowError, onShowResults}) => {
                     onFormClear={handleFormClear} onToggle={handleToggle} onSwap={handleSwap} onSwitch={handleSwitch} onClearKey={handleClearKey} 
                     onKeyError={keyError} onLengthError={lengthError}/>
                 </Col>
-
-                <Col className="tabs" >    
+        
+                <Col className="tabs" >  
+                    <Switch className="save-switch" onSwitch={handleSwitch}/>
+  
                     <Tabs className="tabs-header"defaultActiveKey="history" id="uncontrolled-tab-example" onSelect={changeIconColor} >
                          <Tab eventKey="history" title={<span>History<History className="icons" style={{height:16, width:16}} fill={historyColor}/></span>} 
                             style={{ width: "auto", height: window.innerHeight-166, paddingRight:0}} >

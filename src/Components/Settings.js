@@ -44,8 +44,8 @@ export const Settings = ({onIcChange, onFreqChange, freqTable}) => {
                 </Form.Control>
                 <Form.Text style={{"margin-top":10}}>Sources:</Form.Text>
                 <ul>
-                    <li><Form.Text>https://en.wikipedia.org/wiki/Letter_frequency</Form.Text></li>
-                    <li><Form.Text>http://pi.math.cornell.edu/~mec/2003-2004/cryptography/subs/frequencies.html</Form.Text></li>
+                    <li><span><Form.Text>https://en.wikipedia.org/wiki/Letter_frequency</Form.Text></span></li>
+                    <li><span><Form.Text>http://pi.math.cornell.edu/~mec/2003-2004/cryptography/subs/frequencies.html</Form.Text></span></li>
                     <li><Form.Text>http://cs.wellesley.edu/~fturbak/codman/letterfreq.html</Form.Text></li>
                     <li><Form.Text>http://practicalcryptography.com/cryptanalysis/letter-frequencies-various-languages/english-letter-frequencies/</Form.Text></li>
                 </ul>
