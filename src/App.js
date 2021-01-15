@@ -18,7 +18,7 @@ function App() {
     width: '800px',
     html:
       '<h5>To get started, paste the following encrypted text into the input area. Then click <b>Submit</b> to discover more!</h5>' +
-      '<p>-</p><p>Hghcewcqqsnebjb! Utm bwia sqxl xapnhlywx ubqa bnjmp Iepaswla rjlndhnaq inoxsaa! Lkd yff hkj yqwsyy xrpfajf Xapnhly shz Rjlndhn ibzn xd kyhrycesy ndr pjxx svkia. Hkzj lapawp vmynvab sndf xr ojrjv (wwa xn ptyahrz XJ ffx KSB) rj yzy dvockwq Nwo kw pmw letdc. Pmw vkyz fkwv up gdn pth ib rwld vmynl nnlwwmaapb pmw \'Eal\' qbai. Fipr pqwy lbaea ro fdmk nj Jzashyrz Baylcjto Cwg li ybjoelmla gdn zjulucprks sfcbnrpme ndeabdtdxo. Ska itjy eabxnrsnebj, pk yg ‘Fannw Itjy’ ea pqa sspetwcetf vwe. Awftq!</p>' +
+      '<p>-</p><p>Xwtkeekygizmbrj! Cjc neii aynb jipvptomj cbyi jdzyx Imxiimxi rrtvtxziq qvwnimi! Lsl gvv tsj gyeiok frxnizv Jipvpto ith Rrtvtxz qbhv ft akprgkmio zlr xrfn ihsii, Pspz xipiex lckvvij adtr fr wrzzl (iea fv xjomprh FR vvj SSJ) zr opk lvwksmg zeo se xcm xmtlk. Xcm hsyh nsmtj eg xyi owv ingy upmxc eigvzakrgw klz \‘Skc\’ hwvh. Iwzi glrx opkvr mj egau ea Euzvviiq Wvxoqtkf Xrf ow isajzkpzk hrgickbosa eckjzoxuq klmmylbpuw. Awxqrv zrawxqnxzsi, ou xb \‘Pvemv Ssei\’ zr opk rnzzkvbosa frv. Zvpsl!</p>' +
       '<p>-</p><h7><b>Note:</b> This deployment of the ‘Vigenère Code Cracker” does not support a persistence database for storing history. For the completed version, please visit the repository at GitHub which integrates SQLAlchemy. </h7>',
     focusConfirm: true,
     confirmButtonText: 'Let\'s get started',

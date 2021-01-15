@@ -77,7 +77,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
             <Card.Body>
                 <Form onSubmit={handleSubmit} noValidate>
                     <Form.Group>
-                        <Form.Control as="textarea" placeholder={placeholder} rows={8} name="addCard" required 
+                        <Form.Control as="textarea" placeholder={placeholder} rows={window.innerHeight/70} name="addCard" required 
                             value={userInput.addCard} onChange={handleChange}/>
                     </Form.Group>
 
@@ -115,7 +115,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
 
                     
                     <Form.Group>
-                        <Form.Control as="textarea" rows={8} placeholder ="Output Here..." name="translated" value={userInput.translated} onChange={handleChange}/>
+                        <Form.Control as="textarea" rows={window.innerHeight/70} placeholder ="Output Here..." name="translated" value={userInput.translated} onChange={handleChange}/>
                     </Form.Group>
                 </Form>
             </Card.Body>

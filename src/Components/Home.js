@@ -225,7 +225,7 @@ export const Home = ({onShowError, onShowResults}) => {
                     onKeyError={keyError} onLengthError={lengthError}/>
                 </Col>
         
-                <Col className="tabs" >  
+                <Col md={4} className="tabs" >  
                     <Switch className="save-switch" onSwitch={handleSwitch}/>
   
                     <Tabs className="tabs-header"defaultActiveKey="history" id="uncontrolled-tab-example" onSelect={changeIconColor} >

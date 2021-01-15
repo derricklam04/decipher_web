@@ -32,11 +32,11 @@ export const HistoryCard = ({cards, onCardClick, onCardDelete}) => {
                                 <Card.Subtitle style={{maxHeight: '1rem', maxWidth:'25rem', overflow:"hidden"}}>{card.key}</Card.Subtitle>
                                 <Row>
                                     <Col>
-                                    <Card.Text style={{ maxHeight: '4.5rem', maxWidth:'12rem', overflow:"hidden"}} >{card.content}</Card.Text>
+                                    <Card.Text style={{ maxHeight: '4.5rem', overflow:"hidden"}} >{card.content}</Card.Text>
                                     </Col>
                                     <img className="arrow" height={15} src={arrow}/>
                                     <Col>
-                                    <Card.Text style={{maxHeight: '4.5rem', maxWidth:'12rem', overflow:"hidden"}} >{card.translated}</Card.Text>
+                                    <Card.Text style={{maxHeight: '4.5rem',  overflow:"hidden"}} >{card.translated}</Card.Text>
                                     </Col>
                                 </Row>
                             </Card.Body>
