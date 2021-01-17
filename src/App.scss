@@ -1,4 +1,5 @@
 $back-color: #f5f5f5;
+$nav-color: #343a43;
 
 .App {
   text-align: left;
@@ -9,12 +10,12 @@ $back-color: #f5f5f5;
   position: absolute;
   z-index: 1;
   // #max-height: 17%;
-  max-width: 38%;
+  max-width: 58%;
   height: auto;
   width: auto;
-  padding-top: 0.75%;
-  
-  left: 31%;
+  padding-top: 0.6%;
+  pointer-events: none;
+  left: 21%;
 }
 
 .home-wrapper{
@@ -22,6 +23,12 @@ $back-color: #f5f5f5;
 }
 .home{
   margin-right: 0 !important;
+}
+
+.top-nav{
+  background-color: $nav-color;
+  // background-image: linear-gradient(red,rgb(239, 239, 239));
+
 }
 
 .navbar{
@@ -38,6 +45,7 @@ $back-color: #f5f5f5;
   }
   .card-header{
     background-color:$back-color!important;
+    // background-image: linear-gradient(white,$back-color)
   }
   .btn{
     width:6rem;
@@ -115,7 +123,7 @@ $back-color: #f5f5f5;
     padding-top: 12.3px;
     margin-bottom: 0;
     background-color: $back-color;
-    border-color: #dbdbdb;
+    border-color: rgb(210, 210, 210);
     a:focus {
       outline: none !important;
     }
@@ -170,7 +178,7 @@ $back-color: #f5f5f5;
 
     .row{
       position: relative;
-      left: 13px;
+      left: 9px;
     }
     .col{
       padding: 0px;
@@ -181,11 +189,12 @@ $back-color: #f5f5f5;
     height: 35px;
     .btn{
       position: relative;
-      bottom: 50px;
-      left:19px;
+      bottom: 51px;
+      left:20px;
 
       width: 5rem;
-      margin-left: 6px;
+      height: 33px;
+      margin-left: 7px;
       float: right;
     }
     .select{
@@ -216,7 +225,7 @@ $back-color: #f5f5f5;
   .resultsClose{
     position: relative;
     top: 5px;
-    left:6px;
+    left:1px;
   }
   h6{
     margin-bottom: 1px;
@@ -229,5 +238,27 @@ $back-color: #f5f5f5;
     padding-top: 5px;
     padding-bottom: 6px;
 
+  }
+}
+
+.about{
+  margin: 3%;
+  .card-header{
+    color:rgb(74, 74, 74);
+    h5{
+      position: relative;
+      top: 5px;
+    }
+  }
+  .card-body{
+    padding: 30px 70px;
+    img{
+      display: block;
+      margin: 0 auto; 
+      padding-bottom: 10px;
+    }
+    ul {
+        list-style-type: none;
+    }
   }
 }

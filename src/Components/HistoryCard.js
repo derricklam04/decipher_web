@@ -42,8 +42,8 @@ export const HistoryCard = ({cards, onCardClick, onCardDelete}) => {
                             </Card.Body>
                             <Card.Header style={{ width: 'auto'}}>
                                     <Card.Text style={{color:"#525252"}}>{card.translateType}ed</Card.Text>
-                                    <Button size="sm" variant="danger" onClick={(event) => handleDelete(event, card.id)}>Remove</Button>
-                                    <Button size="sm" variant="outline-info" onClick={() => handleClick(card.id)}>View</Button>
+                                    <Button size="sm" variant="outline-danger" style={{border:"none"}} onClick={(event) => handleDelete(event, card.id)}>Remove</Button>
+                                    <Button size="sm" variant="outline-info" style={{border:"none"}} onClick={() => handleClick(card.id)}>View</Button>
 
                             </Card.Header>
                         </Card>

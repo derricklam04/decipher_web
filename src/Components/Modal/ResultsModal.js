@@ -37,7 +37,7 @@ export const ResultsModal = ({showModal, onClose, cards, onSelect}) => {
                 </span>
               </Col>
               <Col>
-                <Button className="resultsClose" style={{width:'6rem'}} onClick={handleClose}>Go Back</Button>
+                <Button className="resultsClose" variant="info" style={{width:'6rem'}} onClick={handleClose}>Go Back</Button>
               </Col>
             </Row>
             

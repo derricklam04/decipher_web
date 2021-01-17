@@ -8,6 +8,7 @@ import { WelcomeModal } from './Modal/WelcomeModal'
 import { Switch } from './Buttons/Switch'
 
 import PerfectScrollbar from 'react-perfect-scrollbar'
+import Swal from "sweetalert2";  
 
 
 import {ReactComponent as Setting} from '../Icons/settings.svg'

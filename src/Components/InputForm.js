@@ -115,7 +115,7 @@ export const InputForm = ( {userInput, onFormChange, onFormSubmit, onFormClear, 
 
                     
                     <Form.Group>
-                        <Form.Control as="textarea" rows={window.innerHeight/70} placeholder ="Output Here..." name="translated" value={userInput.translated} onChange={handleChange}/>
+                        <Form.Control as="textarea" rows={window.innerHeight/80} placeholder ="Output Here..." name="translated" value={userInput.translated} onChange={handleChange}/>
                     </Form.Group>
                 </Form>
             </Card.Body>
