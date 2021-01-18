@@ -13,7 +13,7 @@ $nav-color: #343a43;
   max-width: 58%;
   height: auto;
   width: auto;
-  padding-top: 0.6%;
+  padding-top: 0.8%;
   pointer-events: none;
   left: 21%;
 }
@@ -153,6 +153,11 @@ $nav-color: #343a43;
       margin-top: 0;
       margin-bottom: 10px;
     }
+    .reset{
+      position: absolute;
+      right: 35px;
+      bottom: 10px;
+    }
   }
 }
 .historyCard{
@@ -242,7 +247,7 @@ $nav-color: #343a43;
 }
 
 .about{
-  margin: 3%;
+  margin: 2% 4%;
   .card-header{
     color:rgb(74, 74, 74);
     h5{

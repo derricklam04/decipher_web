@@ -42,13 +42,8 @@ export const Settings = ({onIcChange, onFreqChange, freqTable}) => {
                     <option value="wellesley">3) Wellesley College</option>
                     <option value="practical">4) Practical Cryptography</option>
                 </Form.Control>
-                <Form.Text style={{"margin-top":10}}>Sources:</Form.Text>
-                <ul>
-                    <li><span><Form.Text>https://en.wikipedia.org/wiki/Letter_frequency</Form.Text></span></li>
-                    <li><span><Form.Text>http://pi.math.cornell.edu/~mec/2003-2004/cryptography/subs/frequencies.html</Form.Text></span></li>
-                    <li><Form.Text>http://cs.wellesley.edu/~fturbak/codman/letterfreq.html</Form.Text></li>
-                    <li><Form.Text>http://practicalcryptography.com/cryptanalysis/letter-frequencies-various-languages/english-letter-frequencies/</Form.Text></li>
-                </ul>
+                <Form.Text style={{"margin-top":10}}>*Sources can be found at 'Learn More'</Form.Text>
+                
             </Form.Group>
             <Button className="reset float-right" variant="danger" onClick={handleReset}>Reset to Defaults</Button>
         </Form>
