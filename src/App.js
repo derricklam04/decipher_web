@@ -1,14 +1,14 @@
 import './App.scss';
+import React, {useState} from 'react';
+
 import { Home } from './Components/Home'
 import { About } from './Components/About'
 
 import { NavBar} from './Components/NavBar'
 import { Footer} from './Components/Footer'
-import { ResultsModal } from './Components/Modal/ResultsModal'
 import title from './Icons/title.png'
 
 import Swal from "sweetalert2";  
-import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
@@ -16,7 +16,13 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 
 
 function App() {
-  if(window.location.pathname === "/"){
+  const [home, setHome] = useState("first")
+  const handleHome = () => {
+    setHome(true);
+  }
+  const handleAbout = () => setHome(false);
+
+  if (home === "first"){
     Swal.fire({
       title: '<strong>Welcome to Vigenère Code Cracker</strong>',
       width: '800px',
@@ -28,6 +34,7 @@ function App() {
       confirmButtonText: 'Let\'s get started',
     })
   }
+  
 
   const handleShowError = () => {
     Swal.fire({
@@ -43,27 +50,27 @@ function App() {
             '</ul>'
     })
   }
-  const handleShowResults = () =>{
-    Swal.fire({
-      width: '750px',
-      title: 'Error...',
-      confirmButtonText: 'Go Back',
-      text: '<ResultsModal/>',
-      footer: ''
-    })
-  }
 
-  return (
-    <Router>
-    <div className="App">
-      <img className="nav-title" height={50} src={title}/>
-      <NavBar/>
-      <Route path="/" exact component={Home} onShowError={handleShowError} onShowResults={handleShowResults}/>
-      <Route path="/about" component={About}/>
-      <Footer/>
-    </div>
-    </Router>
-  );
+  if (home === true || home === "first"){
+    return (
+      <div className="App">
+        <img className="nav-title" alt="title" height={50} src={title}/>
+        <NavBar onHome={handleHome} onAbout={handleAbout}/>
+        <Home onShowError={handleShowError}/>
+        <Footer/>
+      </div>
+    );
+  }
+  else if (home === false){
+    return (
+      <div className="App">
+        <img className="nav-title" alt="title" height={50} src={title}/>
+        <NavBar onHome={handleHome} onAbout={handleAbout}/>
+        <About />
+        <Footer/>
+      </div>
+    );
+  }
 }
 
 export default App;

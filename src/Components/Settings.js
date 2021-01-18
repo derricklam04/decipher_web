@@ -42,7 +42,7 @@ export const Settings = ({onIcChange, onFreqChange, freqTable}) => {
                     <option value="wellesley">3) Wellesley College</option>
                     <option value="practical">4) Practical Cryptography</option>
                 </Form.Control>
-                <Form.Text style={{"margin-top":10}}>*Sources can be found at 'Learn More'</Form.Text>
+                <Form.Text style={{"margin-top":10}}>Sources can be found at 'Learn More'</Form.Text>
                 
             </Form.Group>
             <Button className="reset float-right" variant="danger" onClick={handleReset}>Reset to Defaults</Button>
