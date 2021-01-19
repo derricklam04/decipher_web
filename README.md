@@ -6,7 +6,7 @@
 
 ## Installation and Running
 To start the virtual environment (server):
-```bash
+```
 cd api
 source ./venv/bin/activate
 ```
@@ -21,7 +21,7 @@ npm start
 The Vigenere Cipher is a method of encrypting alphabetic text (known as plain text) based on letter substitution and shifting.
 In this full stack application, the front-end takes encoded messages from the client and passes it to the backend algorithm to be solved/decrypted. Recent queries are stored in the database and is available to be accessed again by the client. 
 
-*For more information about the algorithm which uses frequency analysis, index of coincidence, and chi-square statistics, please visit the 'Learn More' page at [vigenere-code-cracker.herokuapp.com](vigenere-code-cracker.herokuapp.com/)*
+*For more information about the algorithm which uses letter frequency analysis, index of coincidence, and chi-square statistics, please visit the 'Learn More' page at [vigenere-code-cracker.herokuapp.com](vigenere-code-cracker.herokuapp.com/)*
 
 ## Technologies used
 - react.js
