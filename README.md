@@ -1,6 +1,8 @@
 ![title5](https://user-images.githubusercontent.com/56279592/104989170-d6250580-59e7-11eb-81ca-cdccff31fc22.png)
 
-**This project is deployed at [vigenere-code-cracker.herokuapp.com](http://vigenere-code-cracker.herokuapp.com).**
+:grey_exclamation::grey_exclamation: **This project is deployed at [vigenere-code-cracker.herokuapp.com](http://vigenere-code-cracker.herokuapp.com).** :grey_exclamation::grey_exclamation:
+
+*If this is your first time visiting, please allow a few seconds for the server to load*
 
 ## About 
 The Vigenere Cipher is a method of encrypting alphabetic text based on letter substitution and shifting.
