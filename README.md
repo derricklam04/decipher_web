@@ -1,6 +1,6 @@
 ![title5](https://user-images.githubusercontent.com/56279592/104989170-d6250580-59e7-11eb-81ca-cdccff31fc22.png)
 
-**This project is deployed at [vigenere-code-cracker.herokuapp.com](vigenere-code-cracker.herokuapp.com).**
+**This project is deployed at [vigenere-code-cracker.herokuapp.com](http://vigenere-code-cracker.herokuapp.com).**
 
 *Please note that the deployment version is built from the 'deploy' branch and does not support the persistance database (SQLAlchemy) and react-router-dom*
 
