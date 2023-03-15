@@ -7,8 +7,8 @@
 ## Table of Contents
 * [About](#about)
 * [Demo](#demo)
+* [Installation and Running](#installation-and-running)
 * [Technologies Used](#technologies-used)
-* [Features](#features)
 
 ## About 
 The Vigenere Cipher is a method of encrypting alphabetic text based on letter substitution and shifting.
