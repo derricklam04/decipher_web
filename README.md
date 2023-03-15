@@ -25,6 +25,7 @@ Viewing history, swapping textboxes, and managing settings for the decryption al
 ![](https://github.com/derricklam04/decipher_web/blob/master/README/decipher-functions.gif)
 
 ### Explanation Page
+Full explanation is at https://github.com/derricklam04/decipher_web/blob/master/README/INFO.md
 ![](https://github.com/derricklam04/decipher_web/blob/master/README/decipher-info.gif)
 
 ## Installation and Running
